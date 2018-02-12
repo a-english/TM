@@ -199,14 +199,15 @@ class LogList
 	String description;
 	LinkedList<Log> queue;
 	
-	public LogList(name)
-	{
+	public LogList(String name){
 
 		try {
 			File file = new File("TM.txt");
 		}
-		catch (Exception e)
+		catch (Exception e) {
 			System.out.print("Error opening file.");
+		}
+		this.name=name;
 		FileReader fileReader = new FileReader(file);
 		//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -251,15 +252,14 @@ class LogList
 		//but that's a big if
 		Date start, stop;
 		long milliseconds=0;
+		int i=0;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy"); //same format as default input, which is fine
-		while(!queue.isEmpty()){
+		for(i=0;i<queue.size();i+=2){
 			try {
-				start=dateFormat.parse(queue.get(0).input);
-					stop=dateFormat.parse(queue.get(1).input);
+				start=dateFormat.parse(queue.get(i).input);
+					stop=dateFormat.parse(queue.get(i+1).input);
 				//http://www.baeldung.com/java-date-difference
 				milliseconds+= (stop.getTime() - start.getTime());
-				queue.pop();
-				queue.pop();
 			}
 			catch(Exception e){
 				System.out.print("Error reading log time file.\n");
