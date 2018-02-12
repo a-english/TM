@@ -225,25 +225,6 @@ class LogList
 		}
 		fileReader.close();
 		//look for special entries
-		i=findSize();
-		if(i>=0) {
-			size=queue.get(i).input;
-			queue.remove(i);
-		}
-		i=findDescription();
-		if(i>=0) {
-		}
-		//any non-time entires should be extracted from queue now
-	}
-	
-	void print()
-	{
-		
-	}
-	
-	void findData() {
-		//function finds special in function, if it exists
-		//then assigns it to the appropriate class member
 		for (int i=0; i<queue.size(); i++)
 		{
 			if (queue.get(i).type.equals(util.description)){
@@ -255,6 +236,12 @@ class LogList
 				queue.remove(i);
 			}
 		}
+		//any non-time entires should be extracted from queue now
+	}
+	
+	void print()
+	{
+		
 	}
 	
 	
