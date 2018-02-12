@@ -186,15 +186,80 @@ public class TM {
 			}
 		}
 	
-	int calculate(LinkedList<Log> queue)
+	
+	
+	
+
+}
+
+class LogList
+{
+	String name;
+	String size;
+	String description;
+	LinkedList<Log> queue;
+	
+	public LogList(name)
 	{
-		//TODO: account for SIZE
-		//description should be the first entry, if present.
-		int sum=0;
-		if(queue.getFirst().type.equals(util.description))
-			queue.pop();
-		if(queue.getFirst().type.equals(util.size))
-			queue.pop();
+
+		try {
+			File file = new File("TM.txt");
+		}
+		catch (Exception e)
+			System.out.print("Error opening file.");
+		FileReader fileReader = new FileReader(file);
+		//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		StringBuffer stringBuffer = new StringBuffer();
+		String line;
+			
+		int i=0;
+		queue = new LinkedList<Log>();
+		String first;
+		while ((line = bufferedReader.readLine()) != null) {
+			//TODO: use a string tokenizer and stop being a scrub
+			first=line.split(" ")[0];	//grab the first word of the line
+			if(first.equals(name)) {	//if it is the query, grab this line.
+				queue.add(new Log(line));
+			}
+		}
+		fileReader.close();
+		//look for special entries
+		i=findSize();
+		if(i>=0) {
+			size=queue.get(i).input;
+			queue.remove(i);
+		}
+		i=findDescription();
+		if(i>=0) {
+		}
+		//any non-time entires should be extracted from queue now
+	}
+	
+	void print()
+	{
+		
+	}
+	
+	void findData() {
+		//function finds special in function, if it exists
+		//then assigns it to the appropriate class member
+		for (int i=0; i<queue.size(); i++)
+		{
+			if (queue.get(i).type.equals(util.description)){
+				description=queue.get(i).input;
+				queue.remove(i);
+			}
+			else if (queue.get(i).type.equals(util.size)){
+				size=queue.get(i).input;
+				queue.remove(i);
+			}
+		}
+	}
+	
+	
+	int calculate()
+	{
 		//if program has been used correctly the queue will now have only time logs alternating start and stop
 		//but that's a big if
 		Date start, stop;
@@ -203,9 +268,9 @@ public class TM {
 		while(!queue.isEmpty()){
 			try {
 				start=dateFormat.parse(queue.get(0).input);
-				stop=dateFormat.parse(queue.get(1).input);
+					stop=dateFormat.parse(queue.get(1).input);
 				//http://www.baeldung.com/java-date-difference
-				milliseconds+= Math.abs(stop.getTime() - start.getTime());
+				milliseconds+= (stop.getTime() - start.getTime());
 				queue.pop();
 				queue.pop();
 			}
@@ -218,28 +283,8 @@ public class TM {
 		return sum;
 	}
 	
-	int findDescription (LinkedList<Log> queue) {
-		//function finds description in queue, if there is one
-		//returns -1 if there is no description present in the file
-		for (int i=0; i<queue.size(); i++)
-		{
-			if (queue.get(i).type.equals(util.description))
-				return i;
-		}
-		return -1;
-	}
-	
-	int findSize (LinkedList<Log> queue) {
-		//function finds description in queue, if there is one
-		//returns -1 if there is no description present in the file
-		for (int i=0; i<queue.size(); i++)
-		{
-			if (queue.get(i).type.equals(util.size))
-				return i;
-		}
-		return -1;
-	}
 
+			
 }
 
 class Log{
