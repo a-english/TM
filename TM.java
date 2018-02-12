@@ -3,14 +3,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-
+class util{
+	static String summary="summary", 
+			start="start", stop="stop", 
+			description="describe", size="size";
+	
+}
 public class TM {
 	
 	//check for keywords
-	String SUMMARY="summary";
-	String START="start";
-	String STOP="stop";
-	String DESCRIPTION="describe";
 	
 	public void instructions() {
 		System.out.print("\n  To execute the application from the command line you should use the following general format.\n\n"+
@@ -39,7 +40,7 @@ public class TM {
 			//Only one case exists that accepts one argument: summary all
 			//if that is not the case selected, print instructions for user.
 			cmd=args[0];
-			if (cmd.equals(SUMMARY))
+			if (cmd.equals(util.summary))
 			{
 				//print all the lines
 				read("");//blank string used to signify no name given; print all
@@ -52,12 +53,12 @@ public class TM {
 			cmd=args[0];
 			data=args[1];
 
-			if (cmd.equals(SUMMARY))
+			if (cmd.equals(util.summary))
 			{
 				//summary with two args means print out all logs that correspond to certain 
 				read(data);
 			}
-			else if ( cmd.equals(STOP)  ||  cmd.equals(START))
+			else if ( cmd.equals(util.stop)  ||  cmd.equals(util.start))
 			{
 				//input is the same except for the keyword
 				Date date=new Date();
@@ -77,7 +78,7 @@ public class TM {
 			cmd=args[0];
 			data=args[1];
 			description=args[2];
-			if (cmd.equals(DESCRIPTION))
+			if (cmd.equals(util.description))
 			{
 				//TODO: check if description already exists
 				//because I will probably forget if I put in a description or not
@@ -85,7 +86,7 @@ public class TM {
 				//take name and description and print
 				Log log=new Log(cmd, data, description);
 				log.write();
-			}
+			}	
 			else
 				instructions();
 			break;
@@ -159,7 +160,7 @@ public class TM {
 	{
 		//description should be the first entry, if present.
 		int sum=0;
-		if(queue.getFirst().type.equals(DESCRIPTION))
+		if(queue.getFirst().type.equals(util.description))
 			queue.pop();
 		//if program has been used correctly the queue will now have only time logs alternating start and stop
 		//but that's a big if
@@ -189,7 +190,7 @@ public class TM {
 		//returns -1 if there is no description present in the file
 		for (int i=0; i<queue.size(); i++)
 		{
-			if (queue.get(i).type.equals(DESCRIPTION))
+			if (queue.get(i).type.equals(util.description))
 				return i;
 		}
 		return -1;
