@@ -146,7 +146,18 @@ public class TM {
 			}
 			fileReader.close();
 			//first look for a description
-			int index=findDescription(queue);
+			int 
+			index=findSize(queue);
+			if (index!=-1)	//size exists
+			{
+				//move size to front of queue
+				//This makes it read more nicely in the summary
+				//It also simplifies calculation later.
+				Log description=queue.get(index);
+				queue.remove(index);
+				queue.addFirst(description);
+			}
+			index=findDescription(queue);
 			if (index!=-1)	//description exists
 			{
 				//move description to front of queue
@@ -177,9 +188,12 @@ public class TM {
 	
 	int calculate(LinkedList<Log> queue)
 	{
+		//TODO: account for SIZE
 		//description should be the first entry, if present.
 		int sum=0;
 		if(queue.getFirst().type.equals(util.description))
+			queue.pop();
+		if(queue.getFirst().type.equals(util.size))
 			queue.pop();
 		//if program has been used correctly the queue will now have only time logs alternating start and stop
 		//but that's a big if
@@ -210,6 +224,17 @@ public class TM {
 		for (int i=0; i<queue.size(); i++)
 		{
 			if (queue.get(i).type.equals(util.description))
+				return i;
+		}
+		return -1;
+	}
+	
+	int findSize (LinkedList<Log> queue) {
+		//function finds description in queue, if there is one
+		//returns -1 if there is no description present in the file
+		for (int i=0; i<queue.size(); i++)
+		{
+			if (queue.get(i).type.equals(util.size))
 				return i;
 		}
 		return -1;
