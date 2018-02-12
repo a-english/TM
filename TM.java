@@ -32,7 +32,7 @@ public class TM {
 	public void appMain(String[] args) //non-static main wrapper
 	{
 		int numberOfArguments=args.length;
-		String cmd, data, description;
+		String cmd, data, description, size;
 		
 		//since there are many options for number of inputs, needs to take into account number of arguments
 		switch (numberOfArguments) {
@@ -77,9 +77,9 @@ public class TM {
 			//if that is not the case selected, print instructions for user.
 			cmd=args[0];
 			data=args[1];
-			description=args[2];
 			if (cmd.equals(util.description))
 			{
+				description=args[2];
 				//TODO: check if description already exists
 				//because I will probably forget if I put in a description or not
 				
@@ -87,9 +87,28 @@ public class TM {
 				Log log=new Log(cmd, data, description);
 				log.write();
 			}	
+			else if(cmd.equals(util.size))
+			{
+				size=args[2];
+				Log log=new Log(cmd, data, size);
+				log.write();
+			}
 			else
 				instructions();
 			break;
+		case 4:	//summary+description
+		{
+			cmd=args[0];
+			data=args[1];
+			description=args[2];
+			size=args[3];
+
+			Log log=new Log(cmd, data, description);
+			log.write();
+			log=new Log(cmd, data, size);
+			log.write();
+			break;
+		}
 		
 		default: //user input an invalid number of arguments
 			instructions();
