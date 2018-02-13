@@ -5,8 +5,11 @@ import java.util.concurrent.TimeUnit;
 
 class util{
 	static String summary="summary", 
-			start="start", stop="stop", 
-			description="describe", size="size";
+				  start="start", 
+				  stop="stop", 
+				  description="describe", 
+				  size="size",
+				  filename="TM.txt";
 	
 }
 public class TM {
@@ -46,7 +49,7 @@ public class TM {
 				LinkedList<String> names= new LinkedList<String>();
 
 				try {
-					File file = new File("TM.txt");
+					File file = new File(util.filename);
 					FileReader fileReader = new FileReader(file);
 					//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
 					BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -92,7 +95,8 @@ public class TM {
 			if (cmd.equals(util.summary))
 			{
 				//summary with two args means print out all logs that correspond to certain 
-				read(data);
+				LogList log=new LogList(data);
+				log.print();
 			}
 			else if ( cmd.equals(util.stop)  ||  cmd.equals(util.start))
 			{
@@ -162,7 +166,7 @@ class LogList
 	public LogList(String name){
 
 		try {
-			File file = new File("TM.txt");
+			File file = new File(util.filename);
 		}
 		catch (Exception e) {
 			System.out.print("Error opening file.");
@@ -265,13 +269,12 @@ class Log{
 		this.name=name;
 		this.input=input;
 	}
-	File file=new File("TM.txt");
 			
 	public void write()
 	{
 		FileWriter writer;
 		try {
-			writer=new FileWriter(file, true);
+			writer=new FileWriter(util.filename, true);
 			writer.write(name+" "+type+" "+input+"\n"); //does not display nicely in windows
 			
 			writer.flush();
