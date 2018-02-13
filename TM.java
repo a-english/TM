@@ -63,16 +63,13 @@ public class TM {
 						if (!names.contains(tempLog.name))
 							names.add(tempLog.name);
 					}
-					for(int i=0; i<names.size(); i++)
-						System.out.print(names.get(i)+"\n");
-					//names now contains a list of names of distinct entries in log file.
+					
 					LogList tempList;
 					String currentEntry;
 					for(int i=0; i<names.size(); i++)
 					{
 						//creates and displays log lists for each project name found
 						currentEntry=names.get(i);
-						System.out.print("\n\n");
 						tempList=new LogList(currentEntry);
 						tempList.print();
 					}
@@ -211,8 +208,18 @@ class LogList
 						   description +"\nSize: \t" + size +"\n");
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
-		System.out.print("Total minutes spent:"+calculate()+"\n");
-		
+		int hours, minutes=calculate();
+		if (minutes>0) {
+			hours=minutes/60;
+			minutes=minutes%60;
+			System.out.print("\nTotal time spent: ");
+			if (hours==1)
+				System.out.print("1 hour and ");
+			else if (hours>1)
+				System.out.print(hours +" hours and ");
+			System.out.print(minutes + " minutes.\n\n");
+		}
+		//if log is not set up correctly, does not try to display uselss time value
 	}
 	
 	
@@ -288,7 +295,7 @@ class Log{
 	
 	public void print()
 	{
-		System.out.print(name+" "+type+" "+input+"\n");
+		System.out.print(type+" "+input+"\n");
 	}
 		
 }
