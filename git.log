@@ -1,0 +1,71 @@
+commit 4cad8a7eef48fa2ebd67a2c2312237f2e5075c01
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 16:32:40 2018 -0800
+
+    Made the output format much prettier.
+
+commit 315a2e25b53f20d4b81abf6f0a495db4dda36a71
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 16:18:30 2018 -0800
+
+    Fixed compiler errors
+
+commit 01b15a637a0fac8dfe6ee4ae3f0b5d549169fbc3
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 16:14:39 2018 -0800
+
+    Replaced magical filename with static variable
+
+commit 15de393b2ede305443a5ab6a24a4827148c8fa32
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 16:07:37 2018 -0800
+
+    Queue class solution implemented
+
+commit 9701c46dae2f61800b51f0ba51575cbcfd0cbdb1
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 15:21:39 2018 -0800
+
+    Increased readability of calculate function.
+
+commit 4a7025ada7845aa84e3132b009ae447849a301fc
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 15:17:04 2018 -0800
+
+    Actually, just put it in the read function. Parsing should all go together.
+
+commit 975bee651b60b274ef47316ca4dc5dee674c5f51
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 15:15:22 2018 -0800
+
+    Consilidated findDescription and findSize into one happy function
+
+commit 5580be3555ae7fdca451172328e83d8876262735
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 14:37:03 2018 -0800
+
+    Working, but not elegent, solution to sprint 2 objectives
+
+commit 2eb60ccb73117879b296e2e8387feb82a6634b85
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 12:39:01 2018 -0800
+
+    Size added to log
+
+commit eb0eee6660304e5e35736c11270595782f157562
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 12:27:15 2018 -0800
+
+    Threw keyword constants into a util class so they can be used by future helper classes
+
+commit 3984d1bb42ef0b7c02a3c071d25d07f89cd36d98
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 11:57:05 2018 -0800
+
+    Altered usage to correctly reflect new features
+
+commit 296a5c06292cf565c7008d21b6e120617268e086
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 12 11:05:12 2018 -0800
+
+    initial commit
