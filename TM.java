@@ -43,7 +43,43 @@ public class TM {
 			if (cmd.equals(util.summary))
 			{
 				//print all the lines
-				read("");//blank string used to signify no name given; print all
+				LinkedList<String> names= new LinkedList<String>();
+
+				try {
+					File file = new File("TM.txt");
+					FileReader fileReader = new FileReader(file);
+					//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
+					BufferedReader bufferedReader = new BufferedReader(fileReader);
+					String line;
+					
+					Log tempLog;
+					
+					while((line = bufferedReader.readLine()) != null)
+					{
+						tempLog=new Log(line);
+						if (!names.contains(tempLog.name))
+							names.add(tempLog.name);
+					}
+					for(int i=0; i<names.size(); i++)
+						System.out.print(names.get(i)+"\n");
+					//names now contains a list of names of distinct entries in log file.
+					LogList tempList;
+					String currentEntry;
+					for(int i=0; i<names.size(); i++)
+					{
+						//creates and displays log lists for each project name found
+						currentEntry=names.get(i);
+						System.out.print("Now creating list for "+currentEntry+"\n");
+						tempList=new LogList(currentEntry);
+						tempList.print();
+					}
+
+					fileReader.close();
+				}
+				catch (Exception e) {
+					System.out.print("Error reading from file.\n");
+				}
+				
 			}
 			else
 				instructions();
@@ -73,15 +109,13 @@ public class TM {
 			}
 			break;
 		case 3:
-			//Only one case exists that accepts three argument: adding description
-			//if that is not the case selected, print instructions for user.
+			//Either adding description or size
+			//if the case selected is neither of those, print instructions for user.
 			cmd=args[0];
 			data=args[1];
 			if (cmd.equals(util.description))
 			{
 				description=args[2];
-				//TODO: check if description already exists
-				//because I will probably forget if I put in a description or not
 				
 				//take name and description and print
 				Log log=new Log(cmd, data, description);
@@ -116,80 +150,6 @@ public class TM {
 		
 	}
 	
-	void read(String name){
-		try {
-			File file = new File("TM.txt");
-			FileReader fileReader = new FileReader(file);
-			//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			StringBuffer stringBuffer = new StringBuffer();
-			String line;
-		if(name==""){
-			//no name given, read all
-			//Simple read out - no queue necessary
-				while ((line = bufferedReader.readLine()) != null) {
-					stringBuffer.append(line);
-					stringBuffer.append("\n");
-				}
-				fileReader.close();
-				System.out.println("Complete summary:");
-				System.out.println(stringBuffer.toString());
-		}else{
-			//find all logs with name
-			LinkedList<Log> queue = new LinkedList<Log>();
-			String first;
-			while ((line = bufferedReader.readLine()) != null) {
-				first=line.split(" ")[0];	//grab the first word of the line
-				if(first.equals(name)) {	//if it is the query, grab this line.
-					queue.add(new Log(line));
-				}
-			}
-			fileReader.close();
-			//first look for a description
-			int 
-			index=findSize(queue);
-			if (index!=-1)	//size exists
-			{
-				//move size to front of queue
-				//This makes it read more nicely in the summary
-				//It also simplifies calculation later.
-				Log description=queue.get(index);
-				queue.remove(index);
-				queue.addFirst(description);
-			}
-			index=findDescription(queue);
-			if (index!=-1)	//description exists
-			{
-				//move description to front of queue
-				//This makes it read more nicely in the summary
-				//It also simplifies calculation later.
-				Log description=queue.get(index);
-				queue.remove(index);
-				queue.addFirst(description);
-			}
-			if (queue.isEmpty())
-			{
-				System.out.print("No reccords were found named " +name+ "\n");
-			}
-			else {
-			//print out your queue
-			for (int i=0; i<queue.size(); i++)
-				queue.get(i).print();
-			System.out.print("Total minutes spent:"+calculate(queue));
-			}
-		}
-
-		}
-		catch(IOException e)
-			{
-				System.out.print("Error reading from file.\n");
-			}
-		}
-	
-	
-	
-	
-
 }
 
 class LogList
@@ -226,6 +186,8 @@ class LogList
 		}
 		fileReader.close();
 		//look for special entries
+		//if there is more than one entry for either size or description, this takes the most recent
+		//which is accidental, but convenient
 		for (int i=0; i<queue.size(); i++)
 		{
 			if (queue.get(i).type.equals(util.description)){
@@ -242,11 +204,16 @@ class LogList
 	
 	void print()
 	{
+		System.out.println("Name: \t"+name+"\nDescription: \t"+
+						   description +"\nSize: \t" + size +"\n");
+		for (int i=0; i<queue.size(); i++)
+			queue.get(i).print();
+		System.out.print("Total minutes spent:"+calculate(queue)+"\n");
 		
 	}
 	
 	
-	int calculate()
+	String calculate()
 	{
 		//if program has been used correctly the queue will now have only time logs alternating start and stop
 		//but that's a big if
