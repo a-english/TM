@@ -72,7 +72,7 @@ public class TM {
 					{
 						//creates and displays log lists for each project name found
 						currentEntry=names.get(i);
-						System.out.print("Now creating list for "+currentEntry+"\n");
+						System.out.print("\n\n");
 						tempList=new LogList(currentEntry);
 						tempList.print();
 					}
@@ -164,31 +164,30 @@ class LogList
 	LinkedList<Log> queue;
 	
 	public LogList(String name){
-
+		this.name=name;
 		try {
 			File file = new File(util.filename);
+			FileReader fileReader = new FileReader(file);
+			//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			StringBuffer stringBuffer = new StringBuffer();
+			String line;
+				
+			int i=0;
+			queue = new LinkedList<Log>();
+			String first;
+			while ((line = bufferedReader.readLine()) != null) {
+				//TODO: use a string tokenizer and stop being a scrub
+				first=line.split(" ")[0];	//grab the first word of the line
+				if(first.equals(name)) {	//if it is the query, grab this line.
+					queue.add(new Log(line));
+				}
+			}
+			fileReader.close();
 		}
 		catch (Exception e) {
 			System.out.print("Error opening file.");
 		}
-		this.name=name;
-		FileReader fileReader = new FileReader(file);
-		//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
-		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		StringBuffer stringBuffer = new StringBuffer();
-		String line;
-			
-		int i=0;
-		queue = new LinkedList<Log>();
-		String first;
-		while ((line = bufferedReader.readLine()) != null) {
-			//TODO: use a string tokenizer and stop being a scrub
-			first=line.split(" ")[0];	//grab the first word of the line
-			if(first.equals(name)) {	//if it is the query, grab this line.
-				queue.add(new Log(line));
-			}
-		}
-		fileReader.close();
 		//look for special entries
 		//if there is more than one entry for either size or description, this takes the most recent
 		//which is accidental, but convenient
@@ -212,18 +211,19 @@ class LogList
 						   description +"\nSize: \t" + size +"\n");
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
-		System.out.print("Total minutes spent:"+calculate(queue)+"\n");
+		System.out.print("Total minutes spent:"+calculate()+"\n");
 		
 	}
 	
 	
-	String calculate()
+	int calculate()
 	{
 		//if program has been used correctly the queue will now have only time logs alternating start and stop
 		//but that's a big if
 		Date start, stop;
 		long milliseconds=0;
 		int i=0;
+		int sum=0;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy"); //same format as default input, which is fine
 		for(i=0;i<queue.size();i+=2){
 			try {
