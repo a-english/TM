@@ -235,7 +235,7 @@ class LogList
 		for(i=0;i<queue.size();i+=2){
 			try {
 				start=dateFormat.parse(queue.get(i).input);
-					stop=dateFormat.parse(queue.get(i+1).input);
+				stop=dateFormat.parse(queue.get(i+1).input);
 				//http://www.baeldung.com/java-date-difference
 				milliseconds+= (stop.getTime() - start.getTime());
 			}
