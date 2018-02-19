@@ -15,6 +15,7 @@ class util{
 				  filename="TM.txt";
 	
 }
+
 public class TM {
 	
 	LinkedList<LogList> tasks;
@@ -57,18 +58,19 @@ public class TM {
 				if (!names.contains(tempLog.name))
 					names.add(tempLog.name);
 			}
+
+			fileReader.close();
 			
 			LogList tempList;
 			String currentEntry;
 			tasks=new LinkedList<LogList>();
 			for(int i=0; i<names.size(); i++)
 			{
-				//creates and displays log lists for each project name found
+				//creates log lists for each project name found
 				currentEntry=names.get(i);
 				tasks.push(new LogList(currentEntry));
 			}
 
-			fileReader.close();
 		}
 		catch (Exception e) {
 			System.out.print("Error reading from file.\n");
@@ -116,6 +118,18 @@ public class TM {
 				Log log= new Log(cmd, data, date.toString());
 				log.write();
 			}
+			else if (cmd.equals(util.stats))
+			{
+				readAll();
+				LogList currentTask;
+				for(int i=0; i<tasks.size(); i++) {
+					currentTask=tasks.get(i);
+					if (currentTask.size.equals(data))
+					{
+						
+					}
+				}
+			}
 			else
 			{
 				//invalid arguments
@@ -161,6 +175,11 @@ public class TM {
 		default: //user input an invalid number of arguments
 			instructions();
 		}
+		
+	}
+	
+	void stats(string size)
+	{
 		
 	}
 	

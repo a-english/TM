@@ -17,15 +17,17 @@ From specifications given:
 > 
 > Where command can be one of, start, stop, describe, or summary.
 > 
-> java TM start \<task name>	Logs the start time of a task with name
-> \<task name> java TM stop \<task name>	Logs the stop time of a task
-> with name \<task name> java TM describe \<task name>
-> \<description> [<size>]	Logs the description of the task with name \<task name>, with an option to also assign it a size.
-> java TM summary \<task name>	Provides a report of the activity and
-> total time spent working on task with name \<task name> java TM
-> summary 	Provides a report of the activity and total time spent
-> working on ALL tasks
-> java TM size <size> Assign a t-shirt size to task
+> java TM start <task name>	Logs the start time of a task with name <task name>
+>	java TM stop <task name>	Logs the stop time of a task with name <task name>
+>	java TM describe <task name> <description> (optional)<task size>	Logs the description of the task with name <task name>. Requires quotes around description. Optionally allows user to add a task size as well.
+>	java TM summary <task name>	Provides a report of the activity and total time spent working on task with name <task name>
+>	java TM summary		Provides a report of the activity and total time spent working on ALL tasks
+>	java TM stats <task size>	 Displays statistical info for all entries of given size. 
+>	java TM stats		Provides statistical data for all entries of all sizes. 
+>	java TM rename <task name> <new name> 	Renames task in log 
+>	java TM delete <task name> 		Remove current task from log. 
+
+
 
 Inputting with zero arguments or an incorrect argument format displays these instructions.
 
