@@ -160,7 +160,7 @@ class LogList
 {
 	String name;
 	String size;
-	String description;
+	String description="";
 	LinkedList<Log> queue;
 	
 	public LogList(String name){
@@ -194,7 +194,7 @@ class LogList
 		for (int i=0; i<queue.size(); i++)
 		{
 			if (queue.get(i).type.equals(util.description)){
-				description=queue.get(i).input;
+				description+=queue.get(i).input+"\n";
 				queue.remove(i);
 			}
 			else if (queue.get(i).type.equals(util.size)){
