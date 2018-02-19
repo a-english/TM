@@ -121,14 +121,7 @@ public class TM {
 			else if (cmd.equals(util.stats))
 			{
 				readAll();
-				LogList currentTask;
-				for(int i=0; i<tasks.size(); i++) {
-					currentTask=tasks.get(i);
-					if (currentTask.size.equals(data))
-					{
-						
-					}
-				}
+				stats(data);
 			}
 			else
 			{
@@ -180,7 +173,25 @@ public class TM {
 	
 	void stats(string size)
 	{
-		
+		int time;
+		int min, max, total=0, average;
+		LogList currentTask;
+		for(int i=0; i<tasks.size(); i++) {
+			currentTask=tasks.get(i);
+			if (currentTask.size.equals(size))
+			{
+				time=currentTask.calculate();
+			}
+		}
+		if(total==0)
+		{
+			System.out.print("Unable to process stats for +"size+".\n")
+		}
+		else
+		{
+			
+		}
+		}
 	}
 	
 }

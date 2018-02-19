@@ -46,6 +46,8 @@ Since there are many different options for input, a case selection is used, firs
 
 The calculate function seems like the most likely to fail, but since the user can easily edit the log itself to correct for forgetfulness it seems unnecessary to validate further.
 
+When calculating the statistics for different sized tasks, it accepts any input. "Medium" will be calculated differently from "M" or "med". This allows the user to give herself extra specificity without excessive error checking. If they think it's bigger than medium but not quite large they can call it "kinda big" and the program will calculate it appropriately.
+
 
 ## Known Issues
 
