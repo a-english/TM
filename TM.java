@@ -4,17 +4,20 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 class util{
+	//check for keywords
 	static String summary="summary", 
 				  start="start", 
 				  stop="stop", 
 				  description="describe", 
 				  size="size",
+				  rename="rename",
+				  stats="stats",
 				  filename="TM.txt";
 	
 }
 public class TM {
 	
-	//check for keywords
+	LinkedList<LogList> tasks;
 	
 	public void instructions() {
 		System.out.print("\n  To execute the application from the command line you should use the following general format.\n\n"+
@@ -34,6 +37,43 @@ public class TM {
 		TM tm=new TM();
 		tm.appMain(args);
 	}
+	
+	public void readAll()
+	{
+		//print all the lines
+		LinkedList<String> names= new LinkedList<String>();
+		try {
+			File file = new File(util.filename);
+			FileReader fileReader = new FileReader(file);
+			//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String line;
+			
+			Log tempLog;
+			
+			while((line = bufferedReader.readLine()) != null)
+			{
+				tempLog=new Log(line);
+				if (!names.contains(tempLog.name))
+					names.add(tempLog.name);
+			}
+			
+			LogList tempList;
+			String currentEntry;
+			tasks=new LinkedList<LogList>();
+			for(int i=0; i<names.size(); i++)
+			{
+				//creates and displays log lists for each project name found
+				currentEntry=names.get(i);
+				tasks.push(new LogList(currentEntry));
+			}
+
+			fileReader.close();
+		}
+		catch (Exception e) {
+			System.out.print("Error reading from file.\n");
+		}
+	}
 
 	public void appMain(String[] args) //non-static main wrapper
 	{
@@ -48,47 +88,17 @@ public class TM {
 			cmd=args[0];
 			if (cmd.equals(util.summary))
 			{
-				//print all the lines
-				LinkedList<String> names= new LinkedList<String>();
-
-				try {
-					File file = new File(util.filename);
-					FileReader fileReader = new FileReader(file);
-					//reading file line by line, courtesy of http://www.avajava.com/tutorials/lessons/how-do-i-read-a-string-from-a-file-line-by-line.html
-					BufferedReader bufferedReader = new BufferedReader(fileReader);
-					String line;
-					
-					Log tempLog;
-					
-					while((line = bufferedReader.readLine()) != null)
-					{
-						tempLog=new Log(line);
-						if (!names.contains(tempLog.name))
-							names.add(tempLog.name);
-					}
-					
-					LogList tempList;
-					String currentEntry;
-					for(int i=0; i<names.size(); i++)
-					{
-						//creates and displays log lists for each project name found
-						currentEntry=names.get(i);
-						tempList=new LogList(currentEntry);
-						tempList.print();
-					}
-
-					fileReader.close();
-				}
-				catch (Exception e) {
-					System.out.print("Error reading from file.\n");
-				}
+				readAll();
+				for (int i=0; i<tasks.size(); i++)
+					tasks.get(i).print();
+				
 				
 			}
 			else
 				instructions();
 			break;
 		case 2:
-			// either print summary with query, or input a start/stop
+			// either print summary with query, or input a start/stop, or stats for a size
 			cmd=args[0];
 			data=args[1];
 
@@ -249,6 +259,14 @@ class LogList
 			sum=(int) TimeUnit.MINUTES.convert(milliseconds, TimeUnit.MILLISECONDS);
 		}
 		return sum;
+	}
+	
+	void write() {
+		//check for specials: name, description, size
+		//write those as fresh logs
+		
+		for(int i=0; i<queue.size(); i++)
+			queue.pop().write();
 	}
 	
 
