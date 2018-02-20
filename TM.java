@@ -13,19 +13,20 @@ class util{
 				  rename="rename",
 				  stats="stats",
 				  filename="TM.txt";
-	public static void TimeFormat(int minutes)
+	public static String TimeFormat(int minutes)
 	{
+		String time="";
 		int hours;
 		if (minutes>0) {
 			hours=minutes/60;
 			minutes=minutes%60;
-			System.out.print("\nTotal time spent: ");
 			if (hours==1)
-				System.out.print("1 hour and ");
+				time="1 hour and ";
 			else if (hours>1)
-				System.out.print(hours +" hours and ");
-			System.out.print(minutes + " minutes.\n\n");
+				time = hours +" hours and ";
+			time+= minutes+ " minutes.";
 		}
+		return time;
 	}
 	
 }
@@ -188,13 +189,14 @@ public class TM {
 	
 	void stats(String size)
 	{
+		System.out.print("Currently finding stats for "+size+".\n");
 		int time;
 		int min=0, max=0, total=0, average=0, number=0;
 		LogList currentTask;
 		try {
 		for(int i=0; i<tasks.size(); i++) {
 			currentTask=tasks.get(i);
-			//if (currentTask.size.equals(size))
+			if (currentTask.size.equals(size))
 			{
 				number++;
 				time=currentTask.calculate();
@@ -219,10 +221,10 @@ public class TM {
 		{
 			average=total/number;
 			System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
-					"Total time:\t\t"+total+
-					"\nAverage time per task\t"+average+
-					"\nFastest time\t\t"+min+
-					"\nSlowest time\t\t"+max+"\n\n");
+					"Total time:\t\t"+util.TimeFormat(total)+
+					"\nAverage time per task\t"+util.TimeFormat(average)+
+					"\nFastest time\t\t"+util.TimeFormat(min)+
+					"\nSlowest time\t\t"+util.TimeFormat(max)+"\n\n");
 			
 		}
 		}
@@ -286,11 +288,11 @@ class LogList
 	void print()
 	{
 		System.out.println("Name: \t"+name+"\nDescription: \t"+
-						   description +"\nSize: \t" + size +"\n");
+						   description +"Size: \t" + size +"\n");
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
 		int hours, minutes=calculate();
-		util.TimeFormat(minutes);
+		System.out.print("\nTotal time spent: "+util.TimeFormat(minutes)+"\n\n");
 		//if log is not set up correctly, does not try to display uselss time value
 	}
 	
