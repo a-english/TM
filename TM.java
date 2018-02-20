@@ -26,6 +26,8 @@ class util{
 				time = hours +" hours and ";
 			time+= minutes+ " minutes.";
 		}
+		else
+			time="Unknown";
 		return time;
 	}
 	
@@ -101,8 +103,7 @@ public class TM {
 		//since there are many options for number of inputs, needs to take into account number of arguments
 		switch (numberOfArguments) {
 		case 1:
-			//Only one case exists that accepts one argument: summary all
-			//if that is not the case selected, print instructions for user.
+			//Two cases exist with two arguments: stats for all and summary all
 			cmd=args[0];
 			if (cmd.equals(util.summary))
 			{
@@ -111,6 +112,21 @@ public class TM {
 					tasks.get(i).print();
 				
 				
+			}
+			else if (cmd.equals(util.stats))
+			{
+				readAll();
+				LinkedList<String> sizes = new LinkedList<String>();
+				for(int i=0; i<tasks.size(); i++)
+				{
+					if (!sizes.contains(tasks.get(i).size))
+							sizes.push(tasks.get(i).size);
+				}
+				//sizes not contains a list of all the different sizes in the log file
+				for (int i=0; i<sizes.size(); i++)
+				{
+					stats(sizes.get(i));
+				}
 			}
 			else
 				instructions();
@@ -269,20 +285,19 @@ class LogList
 			System.out.print("Error opening file.");
 		}
 		//look for special entries
-		//if there is more than one entry for either size or description, this takes the most recent
-		//which is accidental, but convenient
+		//if there is more than one entry for description, it appends.
 		for (int i=0; i<queue.size(); i++)
 		{
 			if (queue.get(i).type.equals(util.description)){
 				description+=queue.get(i).input+"\n";
 				queue.remove(i);
 			}
-			else if (queue.get(i).type.equals(util.size)){
+			if (queue.get(i).type.equals(util.size)){
 				size=queue.get(i).input;
 				queue.remove(i);
 			}
 		}
-		//any non-time entires should be extracted from queue now
+		//any non-time entries should be extracted from queue now
 	}
 	
 	void print()
