@@ -13,6 +13,20 @@ class util{
 				  rename="rename",
 				  stats="stats",
 				  filename="TM.txt";
+	public static void TimeFormat(int minutes)
+	{
+		int hours;
+		if (minutes>0) {
+			hours=minutes/60;
+			minutes=minutes%60;
+			System.out.print("\nTotal time spent: ");
+			if (hours==1)
+				System.out.print("1 hour and ");
+			else if (hours>1)
+				System.out.print(hours +" hours and ");
+			System.out.print(minutes + " minutes.\n\n");
+		}
+	}
 	
 }
 
@@ -171,27 +185,50 @@ public class TM {
 		
 	}
 	
-	void stats(string size)
+	void stats(String size)
 	{
 		int time;
-		int min, max, total=0, average;
+		int min=0, max=0, total=0, average=0, number=0;
 		LogList currentTask;
+		try {
 		for(int i=0; i<tasks.size(); i++) {
 			currentTask=tasks.get(i);
-			if (currentTask.size.equals(size))
+			//if (currentTask.size.equals(size))
 			{
+				number++;
 				time=currentTask.calculate();
+				if(number==1)
+				{
+					min=time;max=time;
+				}
+				else {
+				if(time>max)
+					max=time;
+				if(time<min)
+					min=time;
+				}
+				total+=time;
 			}
 		}
-		if(total==0)
+		if(number==0)
 		{
-			System.out.print("Unable to process stats for +"size+".\n")
+			System.out.print("Unable to process stats for "+size+".\n");
 		}
 		else
 		{
+			average=total/number;
+			System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
+					"Total time:\t\t"+total+
+					"\nAverage time per task\t"+average+
+					"\nFastest time\t\t"+min+
+					"\nSlowest time\t\t"+max+"\n\n");
 			
 		}
 		}
+		catch(Exception e) {	
+			System.out.print("Unable to process stats for "+size+".\n");
+		}
+	
 	}
 	
 }
@@ -252,16 +289,7 @@ class LogList
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
 		int hours, minutes=calculate();
-		if (minutes>0) {
-			hours=minutes/60;
-			minutes=minutes%60;
-			System.out.print("\nTotal time spent: ");
-			if (hours==1)
-				System.out.print("1 hour and ");
-			else if (hours>1)
-				System.out.print(hours +" hours and ");
-			System.out.print(minutes + " minutes.\n\n");
-		}
+		util.TimeFormat(minutes);
 		//if log is not set up correctly, does not try to display uselss time value
 	}
 	
