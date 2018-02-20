@@ -43,9 +43,9 @@ public class TM {
 		"\tjava TM describe <task name> <description> (optional)<task size>\tLogs the description of the task with name <task name>. Requires quotes around description. Optionally allows user to add a task size as well.\n"+
 		"\tjava TM summary <task name>\tProvides a report of the activity and total time spent working on task with name <task name>\n"+
 		"\tjava TM summary\t\tProvides a report of the activity and total time spent working on ALL tasks\n"+
-		"\tjava TM stats <task size>\t Displays statistical info for all entries of given size. \n\n"+
-		"\tjava TM stats\t\tProvides statistical data for all entries of all sizes. \n\n"+
-		"\tjava TM rename <task name> <new name> \tRenames task in log \n\n"+
+		"\tjava TM stats <task size>\t Displays statistical info for all entries of given size. \n"+
+		"\tjava TM stats\t\tProvides statistical data for all entries of all sizes. \n"+
+		"\tjava TM rename <task name> <new name> \tRenames task in log \n"+
 		"\tjava TM delete <task name> \t\tRemove current task from log. \n\n");
 	}
 	public static void main(String[] args) {
@@ -204,7 +204,7 @@ public class TM {
 				else {
 				if(time>max)
 					max=time;
-				if(time<min)
+				if(time<min&&time>0)
 					min=time;
 				}
 				total+=time;
