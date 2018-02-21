@@ -57,6 +57,40 @@ public class TM {
 		tm.appMain(args);
 	}
 	
+	public void delete(String name)
+	{
+		
+	}
+	
+	public void rename(String oldname, String newname)
+	{
+		readAll();
+		for(int i=0; i<tasks.size(); i++)
+		{
+			if(tasks.get(i).name.equals(oldname))
+			{
+				tasks.get(i).name=newname;
+				writeAll();
+			}
+		}
+	}
+	
+	public void writeAll()
+	{
+		FileWriter writer;
+		try {
+			writer=new FileWriter(util.filename, false);	//not flagged for appent
+			writer.write(""); //empty string - clears file
+			writer.close();
+		}
+		catch( IOException e) {
+			System.out.print("Error opening file for erasing");
+			return;
+		}
+		for(int i=0; i<tasks.size(); i++)
+			tasks.get(i).write();
+	}
+	
 	public void readAll()
 	{
 		//print all the lines
@@ -203,12 +237,6 @@ public class TM {
 		
 	}
 	
-	void rewrite()
-	{
-		//clear the file
-		for(int i=0; i<tasks.size(); i++)
-			tasks.get(i).write();
-	}
 	
 	void stats(String size)
 	{
@@ -291,16 +319,20 @@ class LogList
 		catch (Exception e) {
 			System.out.print("Error opening file.");
 		}
+		String type;
 		//look for special entries
 		//if there is more than one entry for description, it appends.
 		for (int i=0; i<queue.size(); i++)
 		{
-			if (queue.get(i).type.equals(util.description)){
-				description+=queue.get(i).input+"\n";
-				queue.remove(i);
-			}
-			else if (queue.get(i).type.equals(util.size)){
-				size=queue.get(i).input;
+			type=queue.get(i).type;
+			if(!(type.equals(util.start)||type.equals(util.stop)))
+				{if (queue.get(i).type.equals(util.size)){
+					//System.out.print("Found size for "+name+": "+queue.get(i).input +".\n");
+					size=queue.get(i).input;
+				}
+				if (queue.get(i).type.equals(util.description)){
+					description+=queue.get(i).input+"\n";
+				}
 				queue.remove(i);
 			}
 		}
@@ -309,8 +341,8 @@ class LogList
 	
 	void print()
 	{
-		System.out.println("Name: \t"+name+"\nDescription: \t"+
-						   description +"Size: \t" + size +"\n");
+		System.out.println("Name: \t\t"+name+"\nDescription: \t"+
+						   description +"Size: \t\t" + size +"\n");
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
 		int hours, minutes=calculate();
@@ -336,7 +368,7 @@ class LogList
 				milliseconds+= (stop.getTime() - start.getTime());
 			}
 			catch(Exception e){
-				System.out.print("Error reading log time file.\n");
+			//	System.out.print("Error reading log time file.\n");
 				return -1;
 			}
 			sum=(int) TimeUnit.MINUTES.convert(milliseconds, TimeUnit.MILLISECONDS);
@@ -348,12 +380,12 @@ class LogList
 		Log temp;
 		try
 		{
-			temp=new Log("size",name,size);
+			temp=new Log(util.size,name,size);
 			temp.write();
 		}
 		catch(Exception e) {/*no size given*/}
 		try {
-			temp=new Log("description",name,description);
+			temp=new Log(util.description,name,description);
 			temp.write();
 		}
 		catch(Exception e) {/*no description given*/}
@@ -409,7 +441,7 @@ class Log{
 	
 	public void print()
 	{
-		System.out.print(type+" "+input+"\n");
+		System.out.print(type+"\t"+input+"\n");
 	}
 		
 }

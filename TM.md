@@ -51,6 +51,9 @@ When calculating the statistics for different sized tasks, it accepts any input.
 
 The stats calculator has preconditions that the file has already been loaded into a linked list of LogLists.
 
+I opted to go with a rewrite option for Delete and Rename features because both tasks can be achieved with the help of a function that reads all entries, and one that clears the file and rewrites all entries. The postcondition of the write task is that the log file is now sorted by task.
+
+
 
 ## Known Issues
 
