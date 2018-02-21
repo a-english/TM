@@ -203,9 +203,16 @@ public class TM {
 		
 	}
 	
+	void rewrite()
+	{
+		//clear the file
+		for(int i=0; i<tasks.size(); i++)
+			tasks.get(i).write();
+	}
+	
 	void stats(String size)
 	{
-		System.out.print("Currently finding stats for "+size+".\n");
+		//System.out.print("Currently finding stats for "+size+".\n");
 		int time;
 		int min=0, max=0, total=0, average=0, number=0;
 		LogList currentTask;
@@ -228,12 +235,12 @@ public class TM {
 				}
 				total+=time;
 			}
-		}
+		}/*
 		if(number==0)
 		{
 			System.out.print("Unable to process stats for "+size+".\n");
-		}
-		else
+		}*/
+		if (number>1)
 		{
 			average=total/number;
 			System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
@@ -292,7 +299,7 @@ class LogList
 				description+=queue.get(i).input+"\n";
 				queue.remove(i);
 			}
-			if (queue.get(i).type.equals(util.size)){
+			else if (queue.get(i).type.equals(util.size)){
 				size=queue.get(i).input;
 				queue.remove(i);
 			}
@@ -338,8 +345,18 @@ class LogList
 	}
 	
 	void write() {
-		//check for specials: name, description, size
-		//write those as fresh logs
+		Log temp;
+		try
+		{
+			temp=new Log("size",name,size);
+			temp.write();
+		}
+		catch(Exception e) {/*no size given*/}
+		try {
+			temp=new Log("description",name,description);
+			temp.write();
+		}
+		catch(Exception e) {/*no description given*/}
 		
 		for(int i=0; i<queue.size(); i++)
 			queue.pop().write();
