@@ -1,7 +1,7 @@
 import java.io.*;
-import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 class util{
 	//check for keywords
@@ -195,9 +195,9 @@ public class TM {
 			{
 				data=args[1];
 				//input is the same except for the keyword
-				Date date=new Date();
+				String date=LocalDateTime.now().toString();
 				//take name and print info
-				Log log= new Log(cmd, data, date.toString());
+				Log log= new Log(cmd, data, date);
 				log.write();
 			}
 			else if (cmd.equals(util.stats))
@@ -245,13 +245,13 @@ public class TM {
 		case 4:	//summary+description
 		{
 			cmd=args[0];
-			data=args[1];
+			name=args[1];
 			description=args[2];
 			size=args[3];
 
-			Log log=new Log(cmd, data, description);
+			Log log=new Log(util.description, name, description);
 			log.write();
-			log=new Log(cmd, data, size);
+			log=new Log(util.size, name, size);
 			log.write();
 			break;
 		}
@@ -368,14 +368,11 @@ class LogList
 	{
 		System.out.println("Name: \t\t"+name+"\n");
 		
-		if(description!=null && !description.isEmpty())
-			{
+		//if(description!=null && !description.isEmpty()){
 			System.out.print("Description: \t"+description+"\n");
-			}
-		if(size!=null && !size.isEmpty())
-			{
+		//}if(size!=null && !size.isEmpty()){
 			System.out.print("Size: \t\t" + size +"\n");
-			}
+		//}
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
 		int hours, minutes=calculate();
@@ -388,25 +385,20 @@ class LogList
 	{
 		//if program has been used correctly the queue will now have only time logs alternating start and stop
 		//but that's a big if
-		Date start, stop;
-		long milliseconds=0;
-		int i=0;
-		int sum=0;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy"); //same format as default input, which is fine
-		for(i=0;i<queue.size();i+=2){
+		LocalDateTime start, stop;
+		int minutes=0;
+		for(int i=0;i<queue.size();i+=2){
 			try {
-				start=dateFormat.parse(queue.get(i).input);
-				stop=dateFormat.parse(queue.get(i+1).input);
-				//http://www.baeldung.com/java-date-difference
-				milliseconds+= (stop.getTime() - start.getTime());
+				start=LocalDateTime.parse(queue.get(i).input);
+				stop=LocalDateTime.parse(queue.get(i+1).input);
+				minutes+=ChronoUnit.MINUTES.between(start,stop);
 			}
 			catch(Exception e){
 			//	System.out.print("Error reading log time file.\n");
 				return -1;
 			}
-			sum=(int) TimeUnit.MINUTES.convert(milliseconds, TimeUnit.MILLISECONDS);
 		}
-		return sum;
+		return minutes;
 	}
 	
 	void write() {
@@ -446,14 +438,13 @@ class Log{
 
 	public Log(String line)
 	{
-		String type, name, input;
-		name=line.split(" ")[0];
-		type=line.split(" ")[1];
-		input=line.substring(name.length()+type.length()+2); //the rest
-		
-		this.type=type;
-		this.name=name;
-		this.input=input;
+		StringTokenizer st=new StringTokenizer(line);
+		name=st.nextToken();
+		type=st.nextToken();
+		while(st.hasMoreTokens())
+		{
+			input+=st.nextToken("\n");
+		}
 	}
 			
 	public void write()
@@ -466,7 +457,7 @@ class Log{
 				StringTokenizer st= new StringTokenizer(input, "\n");
 				for(int i=0; i<st.countTokens(); i++)
 				{
-					writer.write(name+" "+type+" "+st.nextToken()+"\n");
+					writer.write(name+"\t"+type+"\t"+st.nextToken()+"\n");
 				}
 			}
 			else
