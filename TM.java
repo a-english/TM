@@ -366,7 +366,7 @@ class LogList
 	
 	void print()
 	{
-		System.out.println("Name: \t\t"+name+"\n");
+		System.out.println("Name: \t\t"+name);
 		
 		//if(description!=null && !description.isEmpty()){
 			System.out.print("Description: \t"+description+"\n");
@@ -375,7 +375,7 @@ class LogList
 		//}
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
-		int hours, minutes=calculate();
+		int minutes=calculate();
 		System.out.print("\nTotal time spent: "+util.TimeFormat(minutes)+"\n\n");
 		//if log is not set up correctly, does not try to display uselss time value
 	}
