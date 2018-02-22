@@ -11,6 +11,7 @@ class util{
 				  description="describe", 
 				  size="size",
 				  rename="rename",
+				  delete="delete",
 				  stats="stats",
 				  filename="TM.txt";
 	public static String TimeFormat(int minutes)
@@ -59,7 +60,22 @@ public class TM {
 	
 	public void delete(String name)
 	{
-		
+		readAll();
+		int index=-1;
+		for(int i=0; i<tasks.size(); i++)
+		{
+			if (tasks.get(i).name.equals(name))
+				index=i;
+		}
+		if (index==-1)
+		{
+			System.out.print("No task with name " + name + " found in log.\n");
+		}
+		else
+		{
+			tasks.remove(index);
+		}
+		writeAll();
 	}
 	
 	public void rename(String oldname, String newname)
@@ -112,6 +128,10 @@ public class TM {
 			}
 
 			fileReader.close();
+		}
+		catch (Exception e) {
+			System.out.print("Error reading from file.\n");
+		}
 			
 			LogList tempList;
 			String currentEntry;
@@ -123,21 +143,17 @@ public class TM {
 				tasks.push(new LogList(currentEntry));
 			}
 
-		}
-		catch (Exception e) {
-			System.out.print("Error reading from file.\n");
-		}
+		
 	}
 
 	public void appMain(String[] args) //non-static main wrapper
 	{
 		int numberOfArguments=args.length;
-		String cmd, data, description, size;
+		String cmd, data, description, size, name, newname;
 		
 		//since there are many options for number of inputs, needs to take into account number of arguments
 		switch (numberOfArguments) {
 		case 1:
-			//Two cases exist with two arguments: stats for all and summary all
 			cmd=args[0];
 			if (cmd.equals(util.summary))
 			{
@@ -166,18 +182,18 @@ public class TM {
 				instructions();
 			break;
 		case 2:
-			// either print summary with query, or input a start/stop, or stats for a size
 			cmd=args[0];
-			data=args[1];
 
 			if (cmd.equals(util.summary))
 			{
+				name=args[1];
 				//summary with two args means print out all logs that correspond to certain 
-				LogList log=new LogList(data);
+				LogList log=new LogList(name);
 				log.print();
 			}
 			else if ( cmd.equals(util.stop)  ||  cmd.equals(util.start))
 			{
+				data=args[1];
 				//input is the same except for the keyword
 				Date date=new Date();
 				//take name and print info
@@ -186,8 +202,14 @@ public class TM {
 			}
 			else if (cmd.equals(util.stats))
 			{
+				name=args[1];
 				readAll();
-				stats(data);
+				stats(name);
+			}
+			else if (cmd.equals(util.delete))
+			{
+				name=args[1];
+				delete(name);
 			}
 			else
 			{
@@ -196,23 +218,26 @@ public class TM {
 			}
 			break;
 		case 3:
-			//Either adding description or size
-			//if the case selected is neither of those, print instructions for user.
 			cmd=args[0];
-			data=args[1];
+			name=args[1];
 			if (cmd.equals(util.description))
 			{
 				description=args[2];
 				
 				//take name and description and print
-				Log log=new Log(cmd, data, description);
+				Log log=new Log(cmd, name, description);
 				log.write();
 			}	
 			else if(cmd.equals(util.size))
 			{
 				size=args[2];
-				Log log=new Log(cmd, data, size);
+				Log log=new Log(cmd, name, size);
 				log.write();
+			}
+			else if(cmd.equals(util.rename))
+			{
+				newname=args[2];
+				rename(name, newname);
 			}
 			else
 				instructions();
@@ -341,8 +366,16 @@ class LogList
 	
 	void print()
 	{
-		System.out.println("Name: \t\t"+name+"\nDescription: \t"+
-						   description +"Size: \t\t" + size +"\n");
+		System.out.println("Name: \t\t"+name+"\n");
+		
+		if(description!=null && !description.isEmpty())
+			{
+			System.out.print("Description: \t"+description+"\n");
+			}
+		if(size!=null && !size.isEmpty())
+			{
+			System.out.print("Size: \t\t" + size +"\n");
+			}
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
 		int hours, minutes=calculate();
@@ -428,7 +461,16 @@ class Log{
 		FileWriter writer;
 		try {
 			writer=new FileWriter(util.filename, true);
-			writer.write(name+" "+type+" "+input+"\n"); //does not display nicely in windows
+			if(type==util.description)
+			{
+				StringTokenizer st= new StringTokenizer(input, "\n");
+				for(int i=0; i<st.countTokens(); i++)
+				{
+					writer.write(name+" "+type+" "+st.nextToken()+"\n");
+				}
+			}
+			else
+				writer.write(name+"\t"+type+"\t"+input+"\n"); //does not display nicely in windows
 			
 			writer.flush();
 			writer.close();
