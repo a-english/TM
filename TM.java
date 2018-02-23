@@ -391,7 +391,7 @@ class LogList
 				minutes+=ChronoUnit.MINUTES.between(start,stop);
 			}
 			catch(Exception e){
-			//	System.out.print("Error reading log time file.\n");
+				System.out.print(e.getMessage());
 				return -1;
 			}
 		}
@@ -436,6 +436,7 @@ class Log{
 		name=st.nextToken();
 		type=st.nextToken();
 		input=st.nextToken("\n");
+		input=input.substring(1); //delete tab deliminator
 	}
 			
 	public void write()
