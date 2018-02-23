@@ -346,17 +346,22 @@ class LogList
 		for (int i=0; i<queue.size(); i++)
 		{
 			type=queue.get(i).type;
-			if(!(type.equals(util.start)||type.equals(util.stop)))
-				{if (queue.get(i).type.equals(util.size)){
-					//System.out.print("Found size for "+name+": "+queue.get(i).input +".\n");
+			System.out.print(i+": Found "+type+" for "+name+": "+queue.get(i).input +".\n");
+			if(!(type.equals(util.start)||type.equals(util.stop))){
+				if (queue.get(i).type.equals(util.size)){
+					System.out.print("Stored size.\n");
 					size=queue.get(i).input;
 				}
 				if (queue.get(i).type.equals(util.description)){
 					description+=queue.get(i).input+"\n";
+					System.out.print("Stored description.\n");
 				}
 				queue.remove(i);
 			}
 		}
+		System.out.print("\n\n");
+		for(int i=0; i<queue.size(); i++)
+			queue.get(i).print();
 		//any non-time entries should be extracted from queue now
 	}
 	
