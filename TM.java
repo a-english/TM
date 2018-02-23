@@ -82,7 +82,7 @@ public class TM {
 	{
 		readAll();
 		int index=-1;
-		for(int i=0; i<tasks.size(); i++)
+		for(int i=0; i<tasks.size()	; i++)
 		{
 			if(tasks.get(i).name.equals(newname))
 			{
@@ -99,7 +99,7 @@ public class TM {
 		//index now holds index of task to be renamed, if it exists and there is 
 		//no task with the new name yet
 		
-		tasks.get(index).name=newname;
+		tasks.get(index).rename(newname);
 		writeAll();
 		
 	}
@@ -370,6 +370,15 @@ class LogList
 				}
 			}
 		//any non-time entries should be extracted from queue now
+	}
+	
+	void rename(String newname)
+	{
+		name=newname;
+		for (int i=0; i<queue.size(); i++)
+		{
+			queue.get(i).name=newname;
+		}
 	}
 	
 	void print()
