@@ -1,5 +1,5 @@
 
-README v1.0 / 01 FEBUARY 2018
+README v1.3 / 23 FEBUARY 2018
 
 # Task Manager
 ## Introduction
@@ -47,7 +47,7 @@ Since there are many different options for input, a case selection is used, firs
 
 The calculate function seems like the most likely to fail, but since the user can easily edit the log itself to correct for forgetfulness it seems unnecessary to validate further.
 
-When calculating the statistics for different sized tasks, it accepts any input. "Medium" will be calculated differently from "M" or "med". This allows the user to give herself extra specificity without excessive error checking. If they think it's bigger than medium but not quite large they can call it "kinda big" and the program will calculate it appropriately.
+When calculating the statistics for different sized tasks, it accepts any input. "Medium" will be calculated differently from "M" or "med". This allows the user to give herself extra specificity without excessive error checking. If they think it's bigger than medium but not quite large they can call it "kinda big" and the program will calculate it appropriately, with other "kinda big" projects.
 
 The stats calculator has preconditions that the file has already been loaded into a linked list of LogLists.
 
@@ -58,7 +58,6 @@ I opted to go with a rewrite option for Delete and Rename features because both 
 ## Known Issues
 
 * The calculation function only works if the time log is accurate; ie, start stop start stop...
-* Java util date incorrectly calculates noon as midnight. Should use Date instead.
 * Output file can simply be edited, which could make parsing problematic if edited incorrectly.
 
 ## Areas for Improvement
