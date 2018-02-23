@@ -95,7 +95,7 @@ public class TM {
 	{
 		FileWriter writer;
 		try {
-			writer=new FileWriter(util.filename, false);	//not flagged for appent
+			writer=new FileWriter(util.filename, false);	//not flagged for append
 			writer.write(""); //empty string - clears file
 			writer.close();
 		}
@@ -297,7 +297,6 @@ public class TM {
 		{
 			average=total/number;
 			System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
-					"Total time:\t\t"+util.TimeFormat(total)+
 					"\nAverage time per task\t"+util.TimeFormat(average)+
 					"\nFastest time\t\t"+util.TimeFormat(min)+
 					"\nSlowest time\t\t"+util.TimeFormat(max)+"\n\n");
@@ -328,14 +327,11 @@ class LogList
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			StringBuffer stringBuffer = new StringBuffer();
 			String line;
-				
-			int i=0;
+			StringTokenizer st;
 			queue = new LinkedList<Log>();
-			String first;
 			while ((line = bufferedReader.readLine()) != null) {
-				//TODO: use a string tokenizer and stop being a scrub
-				first=line.split(" ")[0];	//grab the first word of the line
-				if(first.equals(name)) {	//if it is the query, grab this line.
+				st=new StringTokenizer(line);
+				if(st.nextToken().equals(name)) {	//if has the name we want, grab this line.
 					queue.add(new Log(line));
 				}
 			}
@@ -366,18 +362,19 @@ class LogList
 	
 	void print()
 	{
-		System.out.println("Name: \t\t"+name);
 		
-		//if(description!=null && !description.isEmpty()){
-			System.out.print("Description: \t"+description+"\n");
-		//}if(size!=null && !size.isEmpty()){
+		System.out.println("Name: \t\t"+name);
+
+		//if(size!=null && !size.isEmpty()){
 			System.out.print("Size: \t\t" + size +"\n");
+		//}if(description!=null && !description.isEmpty()){
+			System.out.print("Description: \t"+description+"\n");
 		//}
 		for (int i=0; i<queue.size(); i++)
 			queue.get(i).print();
 		int minutes=calculate();
 		System.out.print("\nTotal time spent: "+util.TimeFormat(minutes)+"\n\n");
-		//if log is not set up correctly, does not try to display uselss time value
+		
 	}
 	
 	
@@ -403,17 +400,14 @@ class LogList
 	
 	void write() {
 		Log temp;
-		try
-		{
+		if(size!=null && !size.isEmpty()){
 			temp=new Log(util.size,name,size);
 			temp.write();
 		}
-		catch(Exception e) {/*no size given*/}
-		try {
+		if(description!=null && !description.isEmpty()){
 			temp=new Log(util.description,name,description);
 			temp.write();
 		}
-		catch(Exception e) {/*no description given*/}
 		
 		for(int i=0; i<queue.size(); i++)
 			queue.pop().write();
@@ -441,10 +435,7 @@ class Log{
 		StringTokenizer st=new StringTokenizer(line);
 		name=st.nextToken();
 		type=st.nextToken();
-		while(st.hasMoreTokens())
-		{
-			input+=st.nextToken("\n");
-		}
+		input=st.nextToken("\n");
 	}
 			
 	public void write()
@@ -458,6 +449,7 @@ class Log{
 				for(int i=0; i<st.countTokens(); i++)
 				{
 					writer.write(name+"\t"+type+"\t"+st.nextToken()+"\n");
+					//has to write all lines
 				}
 			}
 			else
