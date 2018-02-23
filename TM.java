@@ -354,8 +354,6 @@ class LogList
 					description+=queue.get(i).input+"\n";
 				}
 				queue.remove(i);
-				i--;
-				//for the love of fuck get out of my queue
 				}
 			}
 		//any non-time entries should be extracted from queue now
