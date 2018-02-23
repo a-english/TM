@@ -338,30 +338,26 @@ class LogList
 			fileReader.close();
 		}
 		catch (Exception e) {
-			System.out.print("Error opening file.");
+			System.out.print("Error opening file to read.");
 		}
+		//queue now hold all relevent entries
 		String type;
 		//look for special entries
 		//if there is more than one entry for description, it appends.
-		for (int i=0; i<queue.size(); i++)
-		{
+		for (int i=0; i<queue.size(); i++){
 			type=queue.get(i).type;
-			System.out.print(i+": Found "+type+" for "+name+": "+queue.get(i).input +".\n");
-			if(!(type.equals(util.start)||type.equals(util.stop))){
+			if(!(type.equals(util.start)||type.equals(util.stop))) {
 				if (queue.get(i).type.equals(util.size)){
-					System.out.print("Stored size.\n");
 					size=queue.get(i).input;
 				}
 				if (queue.get(i).type.equals(util.description)){
 					description+=queue.get(i).input+"\n";
-					System.out.print("Stored description.\n");
 				}
 				queue.remove(i);
+				i--;
+				//for the love of fuck get out of my queue
+				}
 			}
-		}
-		System.out.print("\n\n");
-		for(int i=0; i<queue.size(); i++)
-			queue.get(i).print();
 		//any non-time entries should be extracted from queue now
 	}
 	
@@ -375,8 +371,10 @@ class LogList
 		//}if(description!=null && !description.isEmpty()){
 			System.out.print("Description: \t"+description+"\n");
 		//}
-		for (int i=0; i<queue.size(); i++)
-			queue.get(i).print();
+		for (int i=0; i<queue.size(); i++) {
+				queue.get(i).print();
+			
+		}
 		int minutes=calculate();
 		System.out.print("\nTotal time spent: "+util.TimeFormat(minutes)+"\n\n");
 		
@@ -415,7 +413,9 @@ class LogList
 		}
 		
 		for(int i=0; i<queue.size(); i++)
-			queue.pop().write();
+		{
+			queue.get(i).write();
+		}
 	}
 	
 
