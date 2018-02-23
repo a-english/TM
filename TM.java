@@ -81,14 +81,27 @@ public class TM {
 	public void rename(String oldname, String newname)
 	{
 		readAll();
+		int index=-1;
 		for(int i=0; i<tasks.size(); i++)
 		{
+			if(tasks.get(i).name.equals(newname))
+			{
+				System.out.print("Error: cannot rename as "+newname+"; task already exists.");
+				return;
+			}
 			if(tasks.get(i).name.equals(oldname))
 			{
-				tasks.get(i).name=newname;
-				writeAll();
+				if(index==-1) {
+					index=i;
+				}
 			}
 		}
+		//index now holds index of task to be renamed, if it exists and there is 
+		//no task with the new name yet
+		
+		tasks.get(index).name=newname;
+		writeAll();
+		
 	}
 	
 	public void writeAll()
