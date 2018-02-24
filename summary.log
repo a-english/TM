@@ -1,26 +1,48 @@
-Name: 	markup
-Description: 	Markup document for Task Manager program
-Size: 	null
+Name: 		TM
+Size: 		M
+Description: 	Time management software
 
-start Thu Feb 01 10:09:11 PST 2018
-stop Thu Feb 01 11:06:50 PST 2018
-start Thu Feb 01 11:09:19 PST 2018
-stop Thu Feb 01 11:29:32 PST 2018
+start	2018-02-01T12:10:09.768
+stop	2018-02-01T16:01:48.262
+start	2018-02-03T09:09:13.897
+stop	2018-02-03T17:34:36.170
 
-Total time spent: 1 hour and 17 minutes.
+Total time spent: 12 hours and 16 minutes.
 
-Name: 	TM2
-Description: 	The newer, better, hotter TM
-Size: 	S
+Name: 		TM3
+Size: 		M
+Description: 	Fresh new model-view
 
-start Fri Feb 09 16:57:47 PST 2018
-stop Fri Feb 09 17:07:32 PST 2018
-start Mon Feb 12 11:32:16 PST 2018
-stop Mon Feb 12 13:03:22 PST 2018
-start Mon Feb 12 14:34:35 PST 2018
-stop Mon Feb 12 15:34:53 PST 2018
-start Mon Feb 12 16:06:17 PST 2018
-stop Mon Feb 12 17:12:59 PST 2018
+start	2018-02-19T11:21:56.181
+stop	2018-02-19T13:45:16.985
+start	2018-02-19T14:49:30.285
+stop	2018-02-19T17:09:35.732
+start	2018-02-21T16:05:48.542
+stop	2018-02-21T17:10:52.950
+start	2018-02-22T15:17:34.126
+stop	2018-02-22T19:20:35.981
+start	2018-02-23T14:14:11.549
+stop	2018-02-23T16:00:36.622
 
-Total time spent: 3 hours and 47 minutes.
+Total time spent: 11 hours and 37 minutes.
+
+Name: 		dinosaur
+Size: 		L
+Description: 	A very large project
+
+start	2018-02-23T14:26:52.139
+stop	2018-02-23T19:27:36.526
+start	2018-02-23T12:29:19.528
+stop	2018-02-23T14:29:24.129
+
+Total time spent: 7 hours and 0 minutes.
+
+Name: 		bankApp
+Size: 		L
+Description: 	An app developed for a banking company
+
+start	2018-02-23T06:30:01.438
+stop	2018-02-23T14:54:06.834
+
+Total time spent: 8 hours and 24 minutes.
 
