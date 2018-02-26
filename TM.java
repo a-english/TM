@@ -5,7 +5,8 @@ import java.util.*;
 
 
 public class TM {
-	
+
+	TMModel Model=new TMModel();
 	
 	public void instructions() {
 		System.out.print("\n  To execute the application from the command line you should use the following general format.\n\n"+
@@ -28,7 +29,6 @@ public class TM {
 
 	public void appMain(String[] args) //non-static main wrapper
 	{
-		TMModel Model=new TMModel();
 		int numberOfArguments=args.length;
 		String cmd, data, description, size, name, newname;
 		
@@ -130,8 +130,22 @@ public class TM {
 		
 	}
 	
-	
-	void summary(LogList task){
+	void summaryAll() {
+		Set<String> names = TMMiodel.taskNames();
+		for (String name : names)
+		{
+			summary(name);
+		}
+		for (Size s in Size.values())
+		{
+			System.out.print("STATS FOR "+s+" TASKS\n--------------------\n"+
+				"\nAverage time per task\t"+TMModel.avgTimeForSize(s)+
+				"\nFastest time\t\t"+TMModel.avgTimeForSize(s)+
+				"\nSlowest time\t\t"+TMModel.avgTimeForSize(s)+"\n\n");
+		}
+	}
+	void summary(String name){
+			LogList task=new LogList(name);
 			
 			System.out.println("Name: \t\t"+task.name);
 

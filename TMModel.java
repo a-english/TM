@@ -39,6 +39,8 @@ class util{
 		return time;
 	}
 	
+	public enum Sizes {S, M, L, XL}
+	
 }
 
 public class TMModel implements ITMModel{
@@ -96,51 +98,7 @@ public class TMModel implements ITMModel{
 				tasks.push(new LogList(currentEntry));
 			}
 			
-			void stats(String size)
-			{
-				//System.out.print("Currently finding stats for "+size+".\n");
-				int time;
-				int min=0, max=0, total=0, average=0, number=0;
-				LogList currentTask;
-				try {
-				for(int i=0; i<tasks.size(); i++) {
-					currentTask=tasks.get(i);
-					if (currentTask.size.equals(size))
-					{
-						number++;
-						time=currentTask.calculate();
-						if(number==1)
-						{
-							min=time;max=time;
-						}
-						else {
-						if(time>max)
-							max=time;
-						if(time<min&&time>0)
-							min=time;
-						}
-						total+=time;
-					}
-				}/*
-				if(number==0)
-				{
-					System.out.print("Unable to process stats for "+size+".\n");
-				}*/
-				if (number>1)
-				{
-					average=total/number;
-					System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
-							"\nAverage time per task\t"+util.TimeFormat(average)+
-							"\nFastest time\t\t"+util.TimeFormat(min)+
-							"\nSlowest time\t\t"+util.TimeFormat(max)+"\n\n");
-					
-				}
-				}
-				catch(Exception e) {	
-					System.out.print("Unable to process stats for "+size+".\n");
-				}
 			
-			}
 		
 	}
 	
