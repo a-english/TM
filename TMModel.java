@@ -16,50 +16,9 @@ public class TMModel implements ITMModel{
 
 	}
 	
-
-	public void delete(String name)
-	{
-		readAll();
-		int index=-1;
-		for(int i=0; i<tasks.size(); i++)
-		{
-			if (tasks.get(i).name.equals(name))
-				index=i;
-		}
-		if (index==-1)
-		{
-			System.out.print("No task with name " + name + " found in log.\n");
-		}
-		else
-		{
-			tasks.remove(index);
-		}
-		writeAll();
-	}
 	
 	public void rename(String oldname, String newname)
 	{
-		readAll();
-		int index=-1;
-		for(int i=0; i<tasks.size()	; i++)
-		{
-			if(tasks.get(i).name.equals(newname))
-			{
-				System.out.print("Error: cannot rename as "+newname+"; task already exists.");
-				return;
-			}
-			if(tasks.get(i).name.equals(oldname))
-			{
-				if(index==-1) {
-					index=i;
-				}
-			}
-		}
-		//index now holds index of task to be renamed, if it exists and there is 
-		//no task with the new name yet
-		
-		tasks.get(index).rename(newname);
-		writeAll();
 		
 	}
 	
@@ -166,8 +125,49 @@ public class TMModel implements ITMModel{
     boolean stopTask(String name);
     boolean describeTask(String name, String description);
     boolean sizeTask(String name, String size);
-    boolean deleteTask(String name);
-    boolean renameTask(String oldName, String newName);
+    boolean deleteTask(String name) {
+		readAll();
+		int index=-1;
+		for(int i=0; i<tasks.size(); i++)
+		{
+			if (tasks.get(i).name.equals(name))
+				index=i;
+		}
+		if (index==-1)
+		{
+			System.out.print("No task with name " + name + " found in log.\n");
+			return false;
+		}
+		tasks.remove(index);
+		writeAll();
+		return true;
+    }
+    
+    boolean renameTask(String oldName, String newName) {
+
+		readAll();
+		int index=-1;
+		for(int i=0; i<tasks.size()	; i++)
+		{
+			if(tasks.get(i).name.equals(newname))
+			{
+				return false;
+			}
+			if(tasks.get(i).name.equals(oldname))
+			{
+				if(index==-1) {
+					index=i;
+				}
+			}
+		}
+		//index now holds index of task to be renamed, if it exists and there is 
+		//no task with the new name yet
+		
+		tasks.get(index).rename(newname);
+		writeAll();
+		return true;
+    
+    }
 
     // return information about our tasks
     //
