@@ -28,6 +28,7 @@ public class TM {
 
 	public void appMain(String[] args) //non-static main wrapper
 	{
+		TMModel Model=new TMModel();
 		int numberOfArguments=args.length;
 		String cmd, data, description, size, name, newname;
 		
@@ -63,32 +64,23 @@ public class TM {
 			break;
 		case 2:
 			cmd=args[0];
-
+			name=args[1];
 			if (cmd.equals(util.summary))
 			{
-				name=args[1];
 				//summary with two args means print out all logs that correspond to certain 
 				LogList log=new LogList(name);
 				log.print();
 			}
-			else if ( cmd.equals(util.stop)  ||  cmd.equals(util.start))
+			else if (cmd.equals(util.start))
 			{
-				data=args[1];
-				//input is the same except for the keyword
-				String date=LocalDateTime.now().toString();
-				//take name and print info
-				Log log= new Log(cmd, data, date);
-				log.write();
+				TMModel.startTask(name);
 			}
-			else if (cmd.equals(util.stats))
+			else if(cmd.equals(util.stop))
 			{
-				name=args[1];
-				readAll();
-				stats(name);
+				TMModel.stopTask(name);
 			}
 			else if (cmd.equals(util.delete))
 			{
-				name=args[1];
 				delete(name);
 			}
 			else

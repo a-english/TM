@@ -64,7 +64,7 @@ public class TMModel implements ITMModel{
 	public void readAll()
 	{
 		//print all the lines
-		LinkedList<String> names= new LinkedList<String>();
+		Set<String> names= new Set<String>();
 		try {
 			File file = new File(util.filename);
 			FileReader fileReader = new FileReader(file);
@@ -77,8 +77,7 @@ public class TMModel implements ITMModel{
 			while((line = bufferedReader.readLine()) != null)
 			{
 				tempLog=new Log(line);
-				if (!names.contains(tempLog.name))
-					names.add(tempLog.name);
+				names.add(tempLog.name);
 			}
 
 			fileReader.close();
@@ -144,8 +143,32 @@ public class TMModel implements ITMModel{
 		
 	}
 	
-    boolean startTask(String name);
-    boolean stopTask(String name);
+    boolean startTask(String name) {
+    	try {
+			String date=LocalDateTime.now().toString();
+			//take name and print info
+			Log log= new Log(util.start, name, date);
+			log.write();
+    	}
+    	catch(Exception e)
+    	{
+    		return false;
+    	}
+    	return true;
+    }
+    boolean stopTask(String name) {
+    	try {
+			String date=LocalDateTime.now().toString();
+			//take name and print info
+			Log log= new Log(util.stop, name, date);
+			log.write();
+    	}
+    	catch(Exception e)
+    	{
+    		return false;
+    	}
+    	return true;
+    }
     boolean describeTask(String name, String description);
     boolean sizeTask(String name, String size)
     {
@@ -277,24 +300,6 @@ class LogList
 		}
 	}
 	
-	void print()
-	{
-		
-		System.out.println("Name: \t\t"+name);
-
-		//if(size!=null && !size.isEmpty()){
-			System.out.print("Size: \t\t" + size +"\n");
-		//}if(description!=null && !description.isEmpty()){
-			System.out.print("Description: \t"+description+"\n");
-		//}
-		for (int i=0; i<queue.size(); i++) {
-				queue.get(i).print();
-			
-		}
-		int minutes=calculate();
-		System.out.print("\nTotal time spent: "+util.TimeFormat(minutes)+"\n\n");
-		
-	}
 	
 	
 	int calculate()
