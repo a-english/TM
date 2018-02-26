@@ -192,7 +192,7 @@ public class TMModel implements ITMModel{
 			//index now holds index of task to be renamed, if it exists and there is 
 			//no task with the new name yet
 			
-			tasks.get(index).rename(newname);
+			tasks.get(index).rename(newName);
 			writeAll();
     	}
     	catch(Exception e) {return false;}
@@ -270,7 +270,7 @@ public class TMModel implements ITMModel{
     public String avgTimeForSize(String size)
     {
     	readAll();
-    	int sum=0; num=0;
+    	int sum=0, num=0;
     	
     	for(LogList task : tasks)
     	{
