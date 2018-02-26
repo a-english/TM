@@ -9,18 +9,41 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+class util{
+	//check for keywords
+	static String summary="summary", 
+				  start="start", 
+				  stop="stop", 
+				  description="describe", 
+				  size="size",
+				  rename="rename",
+				  delete="delete",
+				  stats="stats",
+				  filename="TM.txt";
+	
+	public static String TimeFormat(int minutes)
+	{
+		String time="";
+		int hours;
+		if (minutes>0) {
+			hours=minutes/60;
+			minutes=minutes%60;
+			if (hours==1)
+				time="1 hour and ";
+			else if (hours>1)
+				time = hours +" hours and ";
+			time+= minutes+ " minutes.";
+		}
+		else
+			time="Unknown";
+		return time;
+	}
+	
+}
+
 public class TMModel implements ITMModel{
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	
-	public void rename(String oldname, String newname)
-	{
-		
-	}
+	LinkedList<LogList> tasks=new LinkedList<>();
 	
 	public void writeAll()
 	{
@@ -124,7 +147,12 @@ public class TMModel implements ITMModel{
     boolean startTask(String name);
     boolean stopTask(String name);
     boolean describeTask(String name, String description);
-    boolean sizeTask(String name, String size);
+    boolean sizeTask(String name, String size)
+    {
+    	
+    }
+    
+    
     boolean deleteTask(String name) {
 		readAll();
 		int index=-1;
@@ -189,36 +217,7 @@ public class TMModel implements ITMModel{
 }
 
 
-class util{
-	//check for keywords
-	static String summary="summary", 
-				  start="start", 
-				  stop="stop", 
-				  description="describe", 
-				  size="size",
-				  rename="rename",
-				  delete="delete",
-				  stats="stats",
-				  filename="TM.txt";
-	public static String TimeFormat(int minutes)
-	{
-		String time="";
-		int hours;
-		if (minutes>0) {
-			hours=minutes/60;
-			minutes=minutes%60;
-			if (hours==1)
-				time="1 hour and ";
-			else if (hours>1)
-				time = hours +" hours and ";
-			time+= minutes+ " minutes.";
-		}
-		else
-			time="Unknown";
-		return time;
-	}
-	
-}
+
 
 class LogList
 {

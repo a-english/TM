@@ -6,7 +6,6 @@ import java.util.*;
 
 public class TM {
 	
-	LinkedList<LogList> tasks;
 	
 	public void instructions() {
 		System.out.print("\n  To execute the application from the command line you should use the following general format.\n\n"+
@@ -144,7 +143,19 @@ public class TM {
 	}
 	
 	
-	
+	void summary(LogList task){
+			
+			System.out.println("Name: \t\t"+task.name);
+
+			//if(size!=null && !size.isEmpty()){
+				System.out.print("Size: \t\t" + task.size() +"\n");
+			//}if(description!=null && !description.isEmpty()){
+				System.out.print("Description: \t"+task.description()+"\n");
+			//}
+			System.out.print("\nTotal time spent: "+task.getTime()+"\n\n");
+			
+		}
+	}
 	
 }
 
