@@ -94,11 +94,7 @@ public class TM {
 			name=args[1];
 			if (cmd.equals(util.description))
 			{
-				description=args[2];
-				
-				//take name and description and print
-				Log log=new Log(cmd, name, description);
-				log.write();
+				TMModel.describeTask(name, args[2]);
 			}	
 			else if(cmd.equals(util.size))
 			{

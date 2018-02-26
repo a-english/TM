@@ -45,7 +45,7 @@ public class TMModel implements ITMModel{
 
 	LinkedList<LogList> tasks=new LinkedList<>();
 	
-	public void writeAll()
+	void writeAll()
 	{
 		FileWriter writer;
 		try {
@@ -61,7 +61,7 @@ public class TMModel implements ITMModel{
 			tasks.get(i).write();
 	}
 	
-	public void readAll()
+	void readAll()
 	{
 		//print all the lines
 		Set<String> names= new Set<String>();
@@ -95,6 +95,7 @@ public class TMModel implements ITMModel{
 				currentEntry=names.get(i);
 				tasks.push(new LogList(currentEntry));
 			}
+			
 			void stats(String size)
 			{
 				//System.out.print("Currently finding stats for "+size+".\n");
@@ -156,6 +157,7 @@ public class TMModel implements ITMModel{
     	}
     	return true;
     }
+    
     boolean stopTask(String name) {
     	try {
 			String date=LocalDateTime.now().toString();
@@ -169,10 +171,31 @@ public class TMModel implements ITMModel{
     	}
     	return true;
     }
-    boolean describeTask(String name, String description);
+    
+    boolean describeTask(String name, String description)
+    {
+    	try {
+			Log log= new Log(util.description, name, description);
+			log.write();
+    	}
+    	catch(Exception e)
+    	{
+    		return false;
+    	}
+    	return true;
+    }
     boolean sizeTask(String name, String size)
     {
-    	
+
+    	try {
+			Log log= new Log(util.size, name, size);
+			log.write();
+    	}
+    	catch(Exception e)
+    	{
+    		return false;
+    	}
+    	return true;
     }
     
     
@@ -186,7 +209,6 @@ public class TMModel implements ITMModel{
 		}
 		if (index==-1)
 		{
-			System.out.print("No task with name " + name + " found in log.\n");
 			return false;
 		}
 		tasks.remove(index);
@@ -195,47 +217,76 @@ public class TMModel implements ITMModel{
     }
     
     boolean renameTask(String oldName, String newName) {
-
-		readAll();
-		int index=-1;
-		for(int i=0; i<tasks.size()	; i++)
-		{
-			if(tasks.get(i).name.equals(newname))
+    	try {
+			readAll();
+			int index=-1;
+			for(int i=0; i<tasks.size()	; i++)
 			{
-				return false;
-			}
-			if(tasks.get(i).name.equals(oldname))
-			{
-				if(index==-1) {
-					index=i;
+				if(tasks.get(i).name.equals(newname))
+				{
+					return false;
+				}
+				if(tasks.get(i).name.equals(oldname))
+				{
+					if(index==-1) {
+						index=i;
+					}
 				}
 			}
-		}
-		//index now holds index of task to be renamed, if it exists and there is 
-		//no task with the new name yet
-		
-		tasks.get(index).rename(newname);
-		writeAll();
+			//index now holds index of task to be renamed, if it exists and there is 
+			//no task with the new name yet
+			
+			tasks.get(index).rename(newname);
+			writeAll();
+    	}
+    	catch(Exception e) {return false;}
 		return true;
     
     }
 
     // return information about our tasks
     //
-    String taskElapsedTime(String name);
-    String taskSize(String name);
-    String taskDescription(String name);
+    String taskElapsedTime(String name)
+    {
+    	LogList task = new LogList(name);
+    	return util.TimeFormat(task.calculate());
+    }
+    
+    String taskSize(String name) {
+    	LogList task=new LogList(name);
+    	return task.name;
+    }
+    String taskDescription(String name) {
+    	LogList task=new LogList(name);
+    	return task.description;
+    }
 
     // return information about some tasks
     //
-    String minTimeForSize(String size);
+    String minTimeForSize(String size)
+    {
+    	
+    }
     String maxTimeForSize(String size);
     String avgTimeForSize(String size);
 
     // return information about all tasks
     //
-    String elapsedTimeForAllTasks();
-    Set<String> taskNames();
+    String elapsedTimeForAllTasks()
+    {
+    	int sum=0;
+    	readAll();
+    	for(LogList task : tasks)
+    	{
+    		sum+=task.calculate();
+    	}
+    	return util.TimeFormat(sum);
+    	
+    }
+    Set<String> taskNames()
+    {
+    	
+    }
 
 }
 
