@@ -285,7 +285,13 @@ public class TMModel implements ITMModel{
     }
     Set<String> taskNames()
     {
-    	
+    	Set<String> names = new Set<>();
+    	readAll();
+    	for(LogList task : tasks)
+    	{
+    		names.add(task.name);
+    	}
+    	return names;
     }
 
 }
