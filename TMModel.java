@@ -265,10 +265,70 @@ public class TMModel implements ITMModel{
     //
     String minTimeForSize(String size)
     {
+    	readAll();
+    	int minimum=-1;
     	
+    	for(LogList task : tasks)
+    	{
+    		if (task.size.equals(size)) {	//the size we are looking for
+    			if(minimum==-1) {	//first entry
+    				minimum=task.calculate();
+    			}
+    			else
+    			{
+    				if(minimum>task.calculate())
+    					minimum=task.calculate();
+    			}
+    		}
+    	}
+    	if(minimum!=-1)
+    	{
+    		return util.TimeFormat(minimum);
+    	}
+    	else return "null";
     }
-    String maxTimeForSize(String size);
-    String avgTimeForSize(String size);
+    String maxTimeForSize(String size)
+    {
+    	readAll();
+    	int maximum=-1;
+    	
+    	for(LogList task : tasks)
+    	{
+    		if (task.size.equals(size)) {	//the size we are looking for
+    			if(maximum==-1) {	//first entry
+    				maximum=task.calculate();
+    			}
+    			else
+    			{
+    				if(maximum<task.calculate())
+    					maximum=task.calculate();
+    			}
+    		}
+    	}
+    	if(maximum!=-1)
+    	{
+    		return util.TimeFormat(maximum);
+    	}
+    	else return "null";
+    }
+    String avgTimeForSize(String size)
+    {
+    	readAll();
+    	int sum=0; num=0;
+    	
+    	for(LogList task : tasks)
+    	{
+    		if (task.size.equals(size)) {	//the size we are looking for
+    			num++;
+    			sum+=task.calculate();
+    		}
+    	}
+    	if(sum!=-1)
+    	{
+    		return util.TimeFormat(sum/num);
+    	}
+    	else return "null";
+    }
 
     // return information about all tasks
     //
