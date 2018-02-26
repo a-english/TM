@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.StringTokenizer;
 
 class util{
@@ -66,7 +67,7 @@ public class TMModel implements ITMModel{
 	void readAll()
 	{
 		//print all the lines
-		Set<String> names= new Set<String>();
+		TreeSet<String> names= new TreeSet<String>();
 		try {
 			File file = new File(util.filename);
 			FileReader fileReader = new FileReader(file);
@@ -89,12 +90,9 @@ public class TMModel implements ITMModel{
 		}
 			
 			LogList tempList;
-			String currentEntry;
 			tasks=new LinkedList<LogList>();
-			for(int i=0; i<names.size(); i++)
+			for(String currentEntry : names)
 			{
-				//creates log lists for each project name found
-				currentEntry=names.get(i);
 				tasks.push(new LogList(currentEntry));
 			}
 			
@@ -102,7 +100,7 @@ public class TMModel implements ITMModel{
 		
 	}
 	
-    boolean startTask(String name) {
+	public boolean startTask(String name) {
     	try {
 			String date=LocalDateTime.now().toString();
 			//take name and print info
@@ -116,7 +114,7 @@ public class TMModel implements ITMModel{
     	return true;
     }
     
-    boolean stopTask(String name) {
+	public boolean stopTask(String name) {
     	try {
 			String date=LocalDateTime.now().toString();
 			//take name and print info
@@ -130,7 +128,7 @@ public class TMModel implements ITMModel{
     	return true;
     }
     
-    boolean describeTask(String name, String description)
+	public boolean describeTask(String name, String description)
     {
     	try {
 			Log log= new Log(util.description, name, description);
@@ -142,7 +140,7 @@ public class TMModel implements ITMModel{
     	}
     	return true;
     }
-    boolean sizeTask(String name, String size)
+	public boolean sizeTask(String name, String size)
     {
 
     	try {
@@ -157,7 +155,7 @@ public class TMModel implements ITMModel{
     }
     
     
-    boolean deleteTask(String name) {
+	public boolean deleteTask(String name) {
 		readAll();
 		int index=-1;
 		for(int i=0; i<tasks.size(); i++)
@@ -174,17 +172,17 @@ public class TMModel implements ITMModel{
 		return true;
     }
     
-    boolean renameTask(String oldName, String newName) {
+	public boolean renameTask(String oldName, String newName) {
     	try {
 			readAll();
 			int index=-1;
 			for(int i=0; i<tasks.size()	; i++)
 			{
-				if(tasks.get(i).name.equals(newname))
+				if(tasks.get(i).name.equals(newName))
 				{
 					return false;
 				}
-				if(tasks.get(i).name.equals(oldname))
+				if(tasks.get(i).name.equals(oldName))
 				{
 					if(index==-1) {
 						index=i;
@@ -204,24 +202,24 @@ public class TMModel implements ITMModel{
 
     // return information about our tasks
     //
-    String taskElapsedTime(String name)
+    public String taskElapsedTime(String name)
     {
     	LogList task = new LogList(name);
     	return util.TimeFormat(task.calculate());
     }
     
-    String taskSize(String name) {
+    public String taskSize(String name) {
     	LogList task=new LogList(name);
     	return task.name;
     }
-    String taskDescription(String name) {
+    public String taskDescription(String name) {
     	LogList task=new LogList(name);
     	return task.description;
     }
 
     // return information about some tasks
     //
-    String minTimeForSize(String size)
+    public String minTimeForSize(String size)
     {
     	readAll();
     	int minimum=-1;
@@ -245,7 +243,7 @@ public class TMModel implements ITMModel{
     	}
     	else return "null";
     }
-    String maxTimeForSize(String size)
+    public String maxTimeForSize(String size)
     {
     	readAll();
     	int maximum=-1;
@@ -269,7 +267,7 @@ public class TMModel implements ITMModel{
     	}
     	else return "null";
     }
-    String avgTimeForSize(String size)
+    public String avgTimeForSize(String size)
     {
     	readAll();
     	int sum=0; num=0;
@@ -290,7 +288,7 @@ public class TMModel implements ITMModel{
 
     // return information about all tasks
     //
-    String elapsedTimeForAllTasks()
+    public String elapsedTimeForAllTasks()
     {
     	int sum=0;
     	readAll();
@@ -301,9 +299,10 @@ public class TMModel implements ITMModel{
     	return util.TimeFormat(sum);
     	
     }
-    Set<String> taskNames()
+    
+    public Set<String> taskNames()
     {
-    	Set<String> names = new Set<>();
+    	TreeSet<String> names = new TreeSet<>();
     	readAll();
     	for(LogList task : tasks)
     	{

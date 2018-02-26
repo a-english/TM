@@ -140,8 +140,8 @@ public class TM {
 		{
 			System.out.print("STATS FOR "+s+" TASKS\n--------------------\n"+
 				"\nAverage time per task\t"+TMModel.avgTimeForSize(s)+
-				"\nFastest time\t\t"+TMModel.avgTimeForSize(s)+
-				"\nSlowest time\t\t"+TMModel.avgTimeForSize(s)+"\n\n");
+				"\nFastest time\t\t"+TMModel.minTimeForSize(s)+
+				"\nSlowest time\t\t"+TMModel.maxTimeForSize(s)+"\n\n");
 		}
 	}
 	void summary(String name){
