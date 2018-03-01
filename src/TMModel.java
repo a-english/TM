@@ -358,17 +358,16 @@ class LogList
 		//but that's a big if
 		LocalDateTime start, stop;
 		int minutes=0;
-		for(int i=0;i<queue.size();i+=2){
-			try {
+		try {
+			for(int i=0;i<queue.size();i+=2){
 				start=LocalDateTime.parse(queue.get(i).input);
 				stop=LocalDateTime.parse(queue.get(i+1).input);
 				minutes+=ChronoUnit.MINUTES.between(start,stop);
 			}
-			catch(Exception e){
-				System.out.print(e.getMessage());
-				return -1;
-			}
 		}
+		catch(Exception e) {
+			return -1;
+		};
 		return minutes;
 	}
 	
