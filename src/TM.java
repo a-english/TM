@@ -71,25 +71,25 @@ public class TM {
 		{
 			summary(name);
 		}
-		for (Size s : Size.values())
+		Set<String> sizes=Model.taskSizes();
+		for (String size : sizes)
 		{
-			System.out.print("STATS FOR "+s+" TASKS\n--------------------\n"+
-				"\nAverage time per task\t"+TMModel.avgTimeForSize(s)+
-				"\nFastest time\t\t"+TMModel.minTimeForSize(s)+
-				"\nSlowest time\t\t"+TMModel.maxTimeForSize(s)+"\n\n");
+			System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
+				"\nAverage time per task\t"+Model.avgTimeForSize(size)+
+				"\nFastest time\t\t"+Model.minTimeForSize(size)+
+				"\nSlowest time\t\t"+Model.maxTimeForSize(size)+"\n\n");
 		}
 	}
 	void summary(String name){
-			LogList task=new LogList(name);
 			
-			System.out.println("Name: \t\t"+task.name);
+			System.out.println("Name: \t\t"+name);
 
 			//if(size!=null && !size.isEmpty()){
-				System.out.print("Size: \t\t" + task.size() +"\n");
+				System.out.print("Size: \t\t" + Model.taskSize(name) +"\n");
 			//}if(description!=null && !description.isEmpty()){
-				System.out.print("Description: \t"+task.description()+"\n");
+				System.out.print("Description: \t"+Model.taskDescription(name)+"\n");
 			//}
-			System.out.print("\nTotal time spent: "+task.getTime()+"\n\n");
+			System.out.print("\nTotal time spent: "+Model.taskElapsedTime(name)+"\n\n");
 			
 		}
 	

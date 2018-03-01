@@ -1,6 +1,5 @@
 import java.io.*;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,7 +9,7 @@ import java.util.StringTokenizer;
 
 class util{
 	
-	static String filename="TM.txt";
+	static String filename="../TM.txt";
 	
 	public static String TimeFormat(int minutes)
 	{
@@ -39,12 +38,12 @@ public class TMModel implements ITMModel {
 	
 	@Override
 	public boolean startTask(String name) {
-		return newEntry("start", name, LocalTime.now().toString());
+		return newEntry("start", name, LocalDateTime.now().toString());
 	}
 
 	@Override
 	public boolean stopTask(String name) {
-		return newEntry("stop", name, LocalTime.now().toString());
+		return newEntry("stop", name, LocalDateTime.now().toString());
 	}
 
 	@Override
