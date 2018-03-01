@@ -232,6 +232,7 @@ public class TMModel implements ITMModel {
 		}
 		int average=total/names.size();
 		return util.TimeFormat(average);
+		
 	}
 
 	@Override
@@ -282,6 +283,7 @@ public class TMModel implements ITMModel {
 			readAll();
 		}
 		catch (Exception e) {
+			System.out.print("I'm exceptional!\n");
 			return null;
 			}
 		//need to make sure only sizes with >1 entries are making it through
@@ -290,9 +292,10 @@ public class TMModel implements ITMModel {
 		for(int i=0; i<tasks.size(); i++)
 		{
 			temp=tasks.get(i).size;
-			for(int j=1; j<tasks.size(); j++){	
+			for(int j=i+1; j<tasks.size(); j++){	
 				if(temp==tasks.get(j).size) {
 					sizes.add(tasks.get(i).size);
+					System.out.print("Size " + tasks.get(i).size + "added.\n");
 				}
 			}
 			//if it clears this loop without finding a duplicate, the entry does not belong

@@ -1,6 +1,3 @@
-import java.io.*;
-import java.time.*;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class TM {
@@ -60,6 +57,7 @@ public class TM {
 				usage();
 			}
 		}catch(Exception e){
+			System.out.print(e.getMessage());
 			usage();
 		}
 		
@@ -71,7 +69,9 @@ public class TM {
 		{
 			summary(name);
 		}
+		/*
 		Set<String> sizes=Model.taskSizes();
+		
 		for (String size : sizes)
 		{
 			System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
@@ -79,16 +79,17 @@ public class TM {
 				"\nFastest time\t\t"+Model.minTimeForSize(size)+
 				"\nSlowest time\t\t"+Model.maxTimeForSize(size)+"\n\n");
 		}
+		*/
 	}
 	void summary(String name){
 			
 			System.out.println("Name: \t\t"+name);
 
-			//if(size!=null && !size.isEmpty()){
+			if(Model.taskSize(name)!=null){
 				System.out.print("Size: \t\t" + Model.taskSize(name) +"\n");
-			//}if(description!=null && !description.isEmpty()){
+			}if(Model.taskDescription(name)!=""){
 				System.out.print("Description: \t"+Model.taskDescription(name)+"\n");
-			//}
+			}
 			System.out.print("\nTotal time spent: "+Model.taskElapsedTime(name)+"\n\n");
 			
 		}
