@@ -282,11 +282,21 @@ public class TMModel implements ITMModel {
 		try {
 			readAll();
 		}
-		catch (Exception e) {return null;}
+		catch (Exception e) {
+			return null;
+			}
+		//need to make sure only sizes with >1 entries are making it through
 		Set<String> sizes = new HashSet<>();
+		String temp;
 		for(int i=0; i<tasks.size(); i++)
 		{
-			sizes.add(tasks.get(i).size);
+			temp=tasks.get(i).size;
+			for(int j=1; j<tasks.size(); j++){	
+				if(temp==tasks.get(j).size) {
+					sizes.add(tasks.get(i).size);
+				}
+			}
+			//if it clears this loop without finding a duplicate, the entry does not belong
 		}
 		return sizes;
 	}
