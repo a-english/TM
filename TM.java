@@ -6,9 +6,8 @@ import java.util.*;
 
 public class TM {
 
-	TMModel Model=new TMModel();
 	
-	public void instructions() {
+	public void usage() {
 		System.out.print("\n  To execute the application from the command line you should use the following general format.\n\n"+
 		"\tjava TM <command> <data>\n\n"+
 		"  Where command can be one of, start, stop, describe, or summary.\n\n"+
@@ -29,103 +28,40 @@ public class TM {
 
 	public void appMain(String[] args) //non-static main wrapper
 	{
-		int numberOfArguments=args.length;
-		String cmd, data, description, size, name, newname;
-		
-		//since there are many options for number of inputs, needs to take into account number of arguments
-		switch (numberOfArguments) {
-		case 1:
-			cmd=args[0];
-			if (cmd.equals(util.summary))
-			{
-				readAll();
-				for (int i=0; i<tasks.size(); i++)
-					tasks.get(i).print();
-				
-				
+		TMModel Model=new TMModel();
+		try {
+			switch(args[0]){
+			case "start":
+				Model.startTask(args[1]);
+				break;
+			case "stop":
+				Model.stopTask(args[1]);
+				break;
+			case "describe":
+				Model.describeTask(args[1], args[2]);
+				if(args.length==4)
+					Model.sizeTask(args[1], args[3]);
+				break;
+			case "summary":
+				if(args.length==1)
+					summaryAll();
+				else
+					summary(args[1]);
+				break;
+			case "size":
+				Model.sizeTask(args[1],args[2]);
+				break;
+			case "rename":
+				Model.renameTask(args[1],args[2]);
+				break;
+			case "delete":
+				Model.deleteTask(args[1]);
+				break;
+			default:
+				usage();
 			}
-			else if (cmd.equals(util.stats))
-			{
-				readAll();
-				LinkedList<String> sizes = new LinkedList<String>();
-				for(int i=0; i<tasks.size(); i++)
-				{
-					if (!sizes.contains(tasks.get(i).size))
-							sizes.push(tasks.get(i).size);
-				}
-				//sizes not contains a list of all the different sizes in the log file
-				for (int i=0; i<sizes.size(); i++)
-				{
-					stats(sizes.get(i));
-				}
-			}
-			else
-				instructions();
-			break;
-		case 2:
-			cmd=args[0];
-			name=args[1];
-			if (cmd.equals(util.summary))
-			{
-				//summary with two args means print out all logs that correspond to certain 
-				LogList log=new LogList(name);
-				log.print();
-			}
-			else if (cmd.equals(util.start))
-			{
-				TMModel.startTask(name);
-			}
-			else if(cmd.equals(util.stop))
-			{
-				TMModel.stopTask(name);
-			}
-			else if (cmd.equals(util.delete))
-			{
-				delete(name);
-			}
-			else
-			{
-				//invalid arguments
-				instructions();
-			}
-			break;
-		case 3:
-			cmd=args[0];
-			name=args[1];
-			if (cmd.equals(util.description))
-			{
-				TMModel.describeTask(name, args[2]);
-			}	
-			else if(cmd.equals(util.size))
-			{
-				size=args[2];
-				Log log=new Log(cmd, name, size);
-				log.write();
-			}
-			else if(cmd.equals(util.rename))
-			{
-				newname=args[2];
-				rename(name, newname);
-			}
-			else
-				instructions();
-			break;
-		case 4:	//summary+description
-		{
-			cmd=args[0];
-			name=args[1];
-			description=args[2];
-			size=args[3];
-
-			Log log=new Log(util.description, name, description);
-			log.write();
-			log=new Log(util.size, name, size);
-			log.write();
-			break;
-		}
-		
-		default: //user input an invalid number of arguments
-			instructions();
+		}catch(Exception e){
+			usage();
 		}
 		
 	}
@@ -136,7 +72,7 @@ public class TM {
 		{
 			summary(name);
 		}
-		for (Size s in Size.values())
+		for (Size s : Size.values())
 		{
 			System.out.print("STATS FOR "+s+" TASKS\n--------------------\n"+
 				"\nAverage time per task\t"+TMModel.avgTimeForSize(s)+
@@ -157,7 +93,7 @@ public class TM {
 			System.out.print("\nTotal time spent: "+task.getTime()+"\n\n");
 			
 		}
-	}
+	
 	
 }
 
