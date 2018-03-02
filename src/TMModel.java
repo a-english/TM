@@ -223,11 +223,6 @@ public class TMModel implements ITMModel {
 	public String avgTimeForSize(String size) {
 		Set<String> names = taskNamesForSize(size);
 		
-		System.out.print("Cardinality of "+size+" set: "+names.size()+"\n");
-		for(String name : names)
-		{
-			System.out.print(name+"\n");
-		}
 		LogList temp;
 		int total=0;
 		for(String name : names)
@@ -285,12 +280,10 @@ public class TMModel implements ITMModel {
 
 	@Override
 	public Set<String> taskSizes() {
-		//System.out.print("In task sizes.\n");
 		try {
 			readAll();
 		}
 		catch (Exception e) {
-			//System.out.print("I'm exceptional!\n");
 			return null;
 			}
 		//need to make sure only sizes with >1 entries are making it through
@@ -300,10 +293,8 @@ public class TMModel implements ITMModel {
 		{
 			temp=tasks.get(i).size;
 			for(int j=i+1; j<tasks.size(); j++){
-				//System.out.print(temp+":"+tasks.get(j).size+"\n");	
 				if(temp.equals(tasks.get(j).size)) {
 					sizes.add(tasks.get(i).size);
-					//System.out.print("Size " + tasks.get(i).size + "added.\n");
 				}
 			}
 			//if it clears this loop without finding a duplicate, the entry does not belong
