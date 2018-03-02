@@ -1,0 +1,50 @@
+Name: 		TM
+Size: 		M
+Description: 	Time management software
+
+
+Total time spent: 12 hours and 16 minutes.
+
+Name: 		dinosaur
+Size: 		L
+Description: 	A very large project
+
+
+Total time spent: 7 hours and 0 minutes.
+
+Name: 		TM3
+Size: 		M
+Description: 	Fresh new model-view
+
+
+Total time spent: 16 hours and 22 minutes.
+
+Name: 		bankApp
+Size: 		L
+Description: 	An app developed for a banking company
+
+
+Total time spent: 8 hours and 24 minutes.
+
+L
+Cardinality of L set: 2
+dinosaur
+bankApp
+STATS FOR L TASKS
+--------------------
+
+Average time per task	7 hours and 42 minutes.
+Fastest time		7 hours and 0 minutes.
+Slowest time		8 hours and 24 minutes.
+
+M
+Cardinality of M set: 2
+TM
+TM3
+STATS FOR M TASKS
+--------------------
+
+Average time per task	14 hours and 19 minutes.
+Fastest time		12 hours and 16 minutes.
+Slowest time		16 hours and 22 minutes.
+
