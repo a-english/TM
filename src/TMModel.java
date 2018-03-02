@@ -56,7 +56,7 @@ public class TMModel implements ITMModel {
 		return newEntry("size", name, size);
 	}
 	
-	public boolean newEntry(String type, String name, String data) {
+	private boolean newEntry(String type, String name, String data) {
 		try {
 			Log log=new Log(type, name, data);
 			log.write();
@@ -222,6 +222,12 @@ public class TMModel implements ITMModel {
 	@Override
 	public String avgTimeForSize(String size) {
 		Set<String> names = taskNamesForSize(size);
+		
+		System.out.print("Cardinality of "+size+" set: "+names.size()+"\n");
+		for(String name : names)
+		{
+			System.out.print(name+"\n");
+		}
 		LogList temp;
 		int total=0;
 		for(String name : names)
@@ -234,7 +240,6 @@ public class TMModel implements ITMModel {
 		return util.TimeFormat(average);
 		
 	}
-
 	@Override
 	public Set<String> taskNamesForSize(String size) {
 		try {
@@ -242,8 +247,9 @@ public class TMModel implements ITMModel {
 			Set<String> names = new HashSet<>();
 			for(LogList task : tasks)
 			{
-				if (task.size==size)
+				if (task.size.equals(size)) {
 					names.add(task.name);
+				}
 			}
 			return names;
 		}
@@ -279,11 +285,12 @@ public class TMModel implements ITMModel {
 
 	@Override
 	public Set<String> taskSizes() {
+		//System.out.print("In task sizes.\n");
 		try {
 			readAll();
 		}
 		catch (Exception e) {
-			System.out.print("I'm exceptional!\n");
+			//System.out.print("I'm exceptional!\n");
 			return null;
 			}
 		//need to make sure only sizes with >1 entries are making it through
@@ -292,13 +299,15 @@ public class TMModel implements ITMModel {
 		for(int i=0; i<tasks.size(); i++)
 		{
 			temp=tasks.get(i).size;
-			for(int j=i+1; j<tasks.size(); j++){	
-				if(temp==tasks.get(j).size) {
+			for(int j=i+1; j<tasks.size(); j++){
+				//System.out.print(temp+":"+tasks.get(j).size+"\n");	
+				if(temp.equals(tasks.get(j).size)) {
 					sizes.add(tasks.get(i).size);
-					System.out.print("Size " + tasks.get(i).size + "added.\n");
+					//System.out.print("Size " + tasks.get(i).size + "added.\n");
 				}
 			}
 			//if it clears this loop without finding a duplicate, the entry does not belong
+			
 		}
 		return sizes;
 	}

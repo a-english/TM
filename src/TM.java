@@ -69,17 +69,20 @@ public class TM {
 		{
 			summary(name);
 		}
-		/*
-		Set<String> sizes=Model.taskSizes();
 		
+		Set<String> sizes=Model.taskSizes();
+		//TODO: test and fix stats functions, taskNamesForSize, taskNames, taskSizes
 		for (String size : sizes)
 		{
+			System.out.print(size+"\n");
+			
 			System.out.print("STATS FOR "+size+" TASKS\n--------------------\n"+
 				"\nAverage time per task\t"+Model.avgTimeForSize(size)+
 				"\nFastest time\t\t"+Model.minTimeForSize(size)+
-				"\nSlowest time\t\t"+Model.maxTimeForSize(size)+"\n\n");
+				"\nSlowest time\t\t"+Model.maxTimeForSize(size)+
+				"\n\n");
+		
 		}
-		*/
 	}
 	void summary(String name){
 			
