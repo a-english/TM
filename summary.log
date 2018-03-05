@@ -2,47 +2,43 @@ Name: 		TM
 Size: 		M
 Description: 	Time management software
 
-start	2018-02-01T12:10:09.768
-stop	2018-02-01T16:01:48.262
-start	2018-02-03T09:09:13.897
-stop	2018-02-03T17:34:36.170
 
 Total time spent: 12 hours and 16 minutes.
-
-Name: 		TM3
-Size: 		M
-Description: 	Fresh new model-view
-
-start	2018-02-19T11:21:56.181
-stop	2018-02-19T13:45:16.985
-start	2018-02-19T14:49:30.285
-stop	2018-02-19T17:09:35.732
-start	2018-02-21T16:05:48.542
-stop	2018-02-21T17:10:52.950
-start	2018-02-22T15:17:34.126
-stop	2018-02-22T19:20:35.981
-start	2018-02-23T14:14:11.549
-stop	2018-02-23T16:00:36.622
-
-Total time spent: 11 hours and 37 minutes.
 
 Name: 		dinosaur
 Size: 		L
 Description: 	A very large project
 
-start	2018-02-23T14:26:52.139
-stop	2018-02-23T19:27:36.526
-start	2018-02-23T12:29:19.528
-stop	2018-02-23T14:29:24.129
 
 Total time spent: 7 hours and 0 minutes.
+
+Name: 		TM3
+Size: 		M
+Description: 	Fresh new model-view
+
+
+Total time spent: 16 hours and 22 minutes.
 
 Name: 		bankApp
 Size: 		L
 Description: 	An app developed for a banking company
 
-start	2018-02-23T06:30:01.438
-stop	2018-02-23T14:54:06.834
 
 Total time spent: 8 hours and 24 minutes.
+
+L
+STATS FOR L TASKS
+--------------------
+
+Average time per task	7 hours and 42 minutes.
+Fastest time		7 hours and 0 minutes.
+Slowest time		8 hours and 24 minutes.
+
+M
+STATS FOR M TASKS
+--------------------
+
+Average time per task	14 hours and 19 minutes.
+Fastest time		12 hours and 16 minutes.
+Slowest time		16 hours and 22 minutes.
 

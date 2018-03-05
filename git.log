@@ -1,3 +1,135 @@
+commit 54d5f9814e36a60532a412f70f64d66ac51f35bc
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Fri Mar 2 10:31:56 2018 -0800
+
+    Cleaned up relics of old system outputs from TMModel
+
+commit 7dd1b22044dac56ddfd9c3317a5c3676b146dc2b
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Fri Mar 2 10:30:17 2018 -0800
+
+    Printed out summary read
+
+commit c031aafac596c30bd674a346aac0aaa0b16d2fb2
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Fri Mar 2 10:28:33 2018 -0800
+
+    Fixed bug.
+
+commit cbfee3cfc9f1c9b648379050a5e645b2ac53015b
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Thu Mar 1 12:41:51 2018 -0800
+
+    Improved output.
+
+commit 7459321a934cb033505d1014371854d1f77d9173
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Thu Mar 1 11:36:07 2018 -0800
+
+    It works? Checking everything
+
+commit af844b0e6802bf8be53d1b0c3f1d10291bbdb752
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Thu Mar 1 11:28:08 2018 -0800
+
+    Ensured that only sizes with >1 entries are returned by size fetch function
+
+commit 680ce7335db276d4c0ee67fbd8e61877c8d910f7
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Thu Mar 1 11:22:33 2018 -0800
+
+    Improved exception handling
+
+commit d6361c27e4bdde1a16e9da0dd88f92e1a267b9bd
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Thu Mar 1 11:19:15 2018 -0800
+
+    Finished writing overrides
+
+commit 394e12344607c45515d2cf816fb2ecbfb89e00b0
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Thu Mar 1 10:36:09 2018 -0800
+
+    Made project compatible with Eclipse for easier debugging
+
+commit 016213c7898e035792f6b5d630d95233359dbc06
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Wed Feb 28 16:49:57 2018 -0800
+
+    Destroyed ugly interface code
+
+commit cba5f972f4e86eecd1faa627002d2b5370dcbda2
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 12:39:40 2018 -0800
+
+    Syntax errors fixed:TMModel now compiles
+
+commit 796bccdcb767f0a03fb3fc678fdb73b499127db8
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 12:38:49 2018 -0800
+
+    Now using TreeSet for names
+
+commit 09afe3ba768e0191ee8bf51c5b1e60259b553965
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 12:24:22 2018 -0800
+
+    Updated summaryAll()
+
+commit f84c62d8431bc6a1a43d35d5770d85846c21ce8c
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 12:14:50 2018 -0800
+
+    Wrote stats functions
+
+commit 86879803ce08bf5261b47e7e4b1019d7ebbb0677
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 12:07:22 2018 -0800
+
+    Wrote taskNames()
+
+commit 9819fab25697f74c6fad06d167a6d37adbff2103
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 12:05:50 2018 -0800
+
+    Wrote elapsed Time
+
+commit 31f2c1b3dd009a3d8e861ddc87e584131bb64ed6
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 11:52:17 2018 -0800
+
+    Applied polish to start and stop
+
+commit 1b34da435d13f42ed785ed089fc0c564b1243970
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 11:50:41 2018 -0800
+
+    Moved start and stop into model
+
+commit 9647655f469f30699aa04b1f18f860ab8ba38d10
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 11:30:27 2018 -0800
+
+    Adapted delete and rename
+
+commit 4e8d2d80a1f40b0951618fa7bfcfbc2d760d72ed
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 11:27:32 2018 -0800
+
+    Moved functions around to their appropriate new homes.
+
+commit 302c3ecc3dff9eeb8d0ae72ba0cc20bd2b9561a9
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 11:24:20 2018 -0800
+
+    Added TMModel
+
+commit fa1f78cbdeec5ce6fe2c280cffda9938c400e122
+Author: Angela English <angelacaurienglish@csus.edu>
+Date:   Mon Feb 26 11:17:17 2018 -0800
+
+    Added interface
+
 commit f4d823b37cbf05712b80edadf2d4b3066b7972a5
 Author: Angela English <angelacaurienglish@csus.edu>
 Date:   Fri Feb 23 16:04:54 2018 -0800

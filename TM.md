@@ -43,7 +43,7 @@ Since reading involves multiple logs at a time, the read function is a part of t
 
 A linked list is the data structure I chose for doing operations on the log because it is easy to expand to whatever size is needed, and it is simple to calculate the time by simply popping off logs.
 
-Since there are many different options for input, a case selection is used, first to determine the number of arguments since trying to read an argument that does not exist causes an exception.
+Since there are many different options for input, a case selection is used, first to determine the command desired. Using an incorrect number of arguments or an invalid command shows the usage. This reminds the user how to correctly input commands.
 
 The calculate function seems like the most likely to fail, but since the user can easily edit the log itself to correct for forgetfulness it seems unnecessary to validate further.
 
@@ -53,12 +53,14 @@ The stats calculator has preconditions that the file has already been loaded int
 
 I opted to go with a rewrite option for Delete and Rename features because both tasks can be achieved with the help of a function that reads all entries, and one that clears the file and rewrites all entries. The postcondition of the write task is that the log file is now sorted by task.
 
+Since switching to MVC forced a lot of the code to be rewritten, I took the opportunity to clean up the interface. Rewriting the model was not so tedious, since the necessary functions had already been written and the model is almost like a wrapper for the Log and LogList classes. This was the implementation strategy that I expected to take the least time.
+
 
 
 ## Known Issues
 
 * The calculation function only works if the time log is accurate; ie, start stop start stop...
-* Output file can simply be edited, which could make parsing problematic if edited incorrectly.
+* Log file can simply be edited, which could make parsing problematic if edited incorrectly.
 
 ## Areas for Improvement
 * Could use a line that confirms successful operation on input commands

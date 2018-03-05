@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 class util{
 	
-	static String filename="../TM.txt";
+	static String filename="TM.txt";
 	
 	public static String TimeFormat(int minutes)
 	{
